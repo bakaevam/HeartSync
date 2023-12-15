@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.heartsync.core.ui.theme.HeartSyncTheme
 import com.heartsync.core.ui.tools.AppPreview
@@ -65,15 +64,16 @@ fun AppButton(
     type: Type = Type.REGULAR,
     onClick: () -> Unit,
 ) {
-    val background = when(type) {
+    val background = when (type) {
         Type.REGULAR -> MaterialTheme.colorScheme.primary
         else -> Color.Transparent
     }
-    val border = when(type) {
+    val border = when (type) {
         Type.OUTLINE -> BorderStroke(
             width = 1.dp,
             color = MaterialTheme.colorScheme.primary,
         )
+
         else -> null
     }
     Button(
@@ -99,7 +99,7 @@ fun AppButton(
                 )
             }
             text?.let {
-                val textColor = when(type) {
+                val textColor = when (type) {
                     Type.OUTLINE, Type.GHOST -> MaterialTheme.colorScheme.primary
                     else -> MaterialTheme.colorScheme.onPrimary
                 }
