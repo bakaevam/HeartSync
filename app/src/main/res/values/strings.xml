@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">HeartSync</string>
+
+    <!--Welcome-->
+    <string name="welcome_create_account">Создать аккаунт</string>
+    <string name="welcome_exist_account">Уже есть аккаунт?</string>
+    <string name="welcome_sign_in">Войти</string>
 </resources>

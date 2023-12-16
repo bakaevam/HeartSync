@@ -1,4 +1,4 @@
-package com.heartsync.core.ui
+package com.heartsync.core.ui.appcomponents
 
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
