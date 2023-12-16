@@ -1,8 +1,8 @@
-package com.heartsync.core.ui
+package com.heartsync.core.ui.appcomponents
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import com.heartsync.core.ui.theme.HeartSyncTheme
+import com.heartsync.core.ui.theme.MediumCornerShape
 import com.heartsync.core.ui.tools.AppPreview
 
 enum class Type {
@@ -77,13 +78,13 @@ fun AppButton(
         else -> null
     }
     Button(
-        modifier = modifier
-            .padding(0.dp)
-            .padding(16.dp),
+        modifier = modifier,
         colors = ButtonDefaults.buttonColors(
             containerColor = background,
         ),
         border = border,
+        contentPadding = PaddingValues(16.dp),
+        shape = MediumCornerShape,
         onClick = onClick,
     ) {
         Row {
