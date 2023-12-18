@@ -3,7 +3,9 @@ package com.heartsync
 import android.app.ActivityManager
 import android.app.Application
 import android.webkit.WebView
+import com.heartsync.core.providers.repositoryModule
 import com.heartsync.di.navigationModule
+import com.heartsync.di.providerModule
 import com.heartsync.di.viewModelModule
 import org.koin.android.BuildConfig
 import org.koin.android.ext.koin.androidContext
@@ -20,6 +22,8 @@ class HeartSyncApplication : Application() {
                 modules(
                     navigationModule,
                     viewModelModule,
+                    providerModule,
+                    repositoryModule,
                 )
             }
             WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
