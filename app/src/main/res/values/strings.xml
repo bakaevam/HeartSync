@@ -5,4 +5,14 @@
     <string name="welcome_create_account">Создать аккаунт</string>
     <string name="welcome_exist_account">Уже есть аккаунт?</string>
     <string name="welcome_sign_in">Войти</string>
+    <string-array name="welcome_pages_titles">
+        <item>Заголовок 1</item>
+        <item>Заголовок 2</item>
+        <item>Заголовок 3</item>
+    </string-array>
+    <string-array name="welcome_pages_descriptions">
+        <item>Ночь, улица, фонарь, аптека,\nБессмысленный и тусклый свет.</item>
+        <item>Живи еще хоть четверть века -\nВсе будет так. Исхода нет.</item>
+        <item>Умрешь - начнешь опять сначала\nИ повторится все, как встарь</item>
+    </string-array>
 </resources>
