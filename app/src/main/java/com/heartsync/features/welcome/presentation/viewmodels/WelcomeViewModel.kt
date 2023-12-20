@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.heartsync.core.base.MviViewModel
 import com.heartsync.core.tools.navigation.AppNavigator
+import com.heartsync.core.tools.navigation.Destination
 import com.heartsync.features.welcome.domain.repositories.WelcomeRepository
 import com.heartsync.features.welcome.presentation.models.WelcomePhotoMapper
 import kotlinx.coroutines.launch
@@ -27,8 +28,12 @@ class WelcomeViewModel(
         }
     }
 
-    override fun onAction(action: WelcomeAction) {
+    override fun onAction(action: WelcomeAction) = when (action) {
+        is WelcomeAction.OnCreateAccountClick -> appNavigator.tryNavigateTo(
+            route = Destination.SignUpScreen.fullRoute,
+        )
 
+        else -> {}
     }
 
     private companion object {

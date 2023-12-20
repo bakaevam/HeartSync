@@ -19,4 +19,6 @@ sealed class Destination(
     }
 
     object WelcomeScreen : NoArgumentsDestination(Route.WELCOME.key)
+
+    object SignUpScreen : NoArgumentsDestination(Route.SIGN_UP.key)
 }
