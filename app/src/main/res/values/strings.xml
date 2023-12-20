@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">HeartSync</string>
 
+    <!--Errors-->
+    <string name="error_default">Что-то пошло не так</string>
+    <string name="error_google_account">Google аккаунт не найден</string>
+
     <!--Welcome-->
     <string name="welcome_create_account">Создать аккаунт</string>
     <string name="welcome_exist_account">Уже есть аккаунт?</string>
@@ -15,4 +19,10 @@
         <item>Живи еще хоть четверть века -\nВсе будет так. Исхода нет.</item>
         <item>Умрешь - начнешь опять сначала\nИ повторится все, как встарь</item>
     </string-array>
+
+    <!--Sign up-->
+    <string name="sign_up_continue">Зарегистрируйтесь, чтобы продолжить</string>
+    <string name="sign_up_email">Продолжить с почтой</string>
+    <string name="sign_up_phone">Использовать номер телефона</string>
+    <string name="sign_up_social">или зарегистрируйтесь с</string>
 </resources>

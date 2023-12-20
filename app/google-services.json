@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "392883523693",
+    "firebase_url": "https://heartsync-54d4a-default-rtdb.firebaseio.com",
     "project_id": "heartsync-54d4a",
     "storage_bucket": "heartsync-54d4a.appspot.com"
   },
@@ -12,7 +13,20 @@
           "package_name": "com.heartsync"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "392883523693-l7id38orkmio5iep85lk6563nmlvicfu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.heartsync",
+            "certificate_hash": "9c66f6da27a7cce5c3542644606bcee78003fb48"
+          }
+        },
+        {
+          "client_id": "392883523693-o7bsl5flau9kv92pn0tn3kcopsbsqp2m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBecv9aCCaQIVqId8ehnZoFgMpKHIvrtoY"
@@ -20,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "392883523693-o7bsl5flau9kv92pn0tn3kcopsbsqp2m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
