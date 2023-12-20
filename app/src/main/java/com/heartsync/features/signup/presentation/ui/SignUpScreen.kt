@@ -25,7 +25,6 @@ import org.koin.androidx.compose.koinViewModel
 
 private const val REQ_ONE_TAP = 1
 private const val TAG = "SignUp Screen"
-const val REQUEST_CODE = "REQUEST_CODE"
 
 @Composable
 fun SignUpScreen(
@@ -43,7 +42,6 @@ fun SignUpScreen(
     val googleError = stringResource(R.string.error_google_account)
     val launcher =
         rememberLauncherForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
-            val requestCode = result.resultCode
             if (result.resultCode == RESULT_OK) {
                 try {
                     val credential = oneTapClient.getSignInCredentialFromIntent(result.data)
