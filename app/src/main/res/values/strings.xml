@@ -25,4 +25,6 @@
     <string name="sign_up_email">Продолжить с почтой</string>
     <string name="sign_up_phone">Использовать номер телефона</string>
     <string name="sign_up_social">или зарегистрируйтесь с</string>
+    <string name="sign_up_terms_of_use">Условия использования</string>
+    <string name="sign_up_privacy_policy">Политика конфиденциальности</string>
 </resources>

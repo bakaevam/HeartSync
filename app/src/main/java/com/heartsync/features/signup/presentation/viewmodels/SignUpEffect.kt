@@ -8,4 +8,8 @@ interface SignUpEffect : Effect {
     class SignUpViaGoogle(
         val oneTapRequest: BeginSignInRequest,
     ) : SignUpEffect
+
+    class OpenWebPage(
+        val url: String,
+    ) : SignUpEffect
 }

@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.common.api.ApiException
@@ -22,8 +23,6 @@ import com.heartsync.features.signup.presentation.viewmodels.SignUpEffect
 import com.heartsync.features.signup.presentation.viewmodels.SignUpViewModel
 import org.koin.androidx.compose.koinViewModel
 
-
-private const val REQ_ONE_TAP = 1
 private const val TAG = "SignUp Screen"
 
 @Composable
@@ -71,6 +70,7 @@ fun SignUpScreen(
             }
         }
 
+    val uriHandler = LocalUriHandler.current
     CollectEffect(source = viewModel.effect) { effect ->
         when (effect) {
             is SignUpEffect.SignUpViaGoogle -> {
@@ -90,6 +90,10 @@ fun SignUpScreen(
                         activity.showToast(googleError)
                         e.localizedMessage?.let { Log.d(TAG, it) }
                     }
+            }
+
+            is SignUpEffect.OpenWebPage -> {
+                uriHandler.openUri(effect.url)
             }
 
             else -> {}
