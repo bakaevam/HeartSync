@@ -9,6 +9,10 @@ interface SignUpAction : Action {
 
     object OnUsePhoneClick : SignUpAction
 
+    object OnTermsOfUseClick : SignUpAction
+
+    object OnPrivacyPolicyClick : SignUpAction
+
     class OnSocialSignUpClick(
         val socialSignUp: SocialSignUp,
     ) : SignUpAction

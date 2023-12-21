@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.heartsync.core.base.MviViewModel
 import com.heartsync.core.providers.auth.FirebaseAuthProvider
+import com.heartsync.core.tools.BASE_URL
 import com.heartsync.features.signup.presentation.models.SocialSignUp
 import kotlinx.coroutines.launch
 
@@ -18,6 +19,8 @@ class SignUpViewModel(
     override fun onAction(action: SignUpAction) = when (action) {
         is SignUpAction.OnSocialSignUpClick -> onSocialSignUpClick(action.socialSignUp)
         is SignUpAction.OnGetIdToken -> onGetIdToken(action)
+        is SignUpAction.OnTermsOfUseClick -> postEffect(SignUpEffect.OpenWebPage(BASE_URL + TERMS_OF_USE))
+        is SignUpAction.OnPrivacyPolicyClick -> postEffect(SignUpEffect.OpenWebPage(BASE_URL + PRIVACY_POLICY))
         else -> {}
     }
 
@@ -40,5 +43,7 @@ class SignUpViewModel(
 
     private companion object {
         private const val TAG = "Sign Up"
+        private const val TERMS_OF_USE = "/terms_of_use.html"
+        private const val PRIVACY_POLICY = "/privacy_policy.html"
     }
 }
