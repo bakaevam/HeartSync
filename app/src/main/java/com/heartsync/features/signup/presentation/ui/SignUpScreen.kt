@@ -23,8 +23,6 @@ import com.heartsync.features.signup.presentation.viewmodels.SignUpEffect
 import com.heartsync.features.signup.presentation.viewmodels.SignUpViewModel
 import org.koin.androidx.compose.koinViewModel
 
-
-private const val REQ_ONE_TAP = 1
 private const val TAG = "SignUp Screen"
 
 @Composable
