@@ -5,10 +5,13 @@ import androidx.lifecycle.viewModelScope
 import com.heartsync.core.base.MviViewModel
 import com.heartsync.core.providers.auth.FirebaseAuthProvider
 import com.heartsync.core.tools.BASE_URL
+import com.heartsync.core.tools.navigation.AppNavigator
+import com.heartsync.core.tools.navigation.Destination
 import com.heartsync.features.signup.presentation.models.SocialSignUp
 import kotlinx.coroutines.launch
 
 class SignUpViewModel(
+    private val appNavigator: AppNavigator,
     private val firebaseAuthProvider: FirebaseAuthProvider,
 ) : MviViewModel<SignUpState, SignUpEffect, SignUpAction>(
     SignUpState(
@@ -21,7 +24,8 @@ class SignUpViewModel(
         is SignUpAction.OnGetIdToken -> onGetIdToken(action)
         is SignUpAction.OnTermsOfUseClick -> postEffect(SignUpEffect.OpenWebPage(BASE_URL + TERMS_OF_USE))
         is SignUpAction.OnPrivacyPolicyClick -> postEffect(SignUpEffect.OpenWebPage(BASE_URL + PRIVACY_POLICY))
-        else -> {}
+        is SignUpAction.OnContinueWithEmailClick -> {}
+        is SignUpAction.OnUsePhoneClick -> onUsePhoneClick()
     }
 
     private fun onSocialSignUpClick(socialSignUp: SocialSignUp) {
@@ -39,6 +43,10 @@ class SignUpViewModel(
                 Log.e(TAG, "Failed to sign up by social", e)
             }
         }
+    }
+
+    private fun onUsePhoneClick() {
+        appNavigator.tryNavigateTo(Destination.EnterPhone.fullRoute)
     }
 
     private companion object {
