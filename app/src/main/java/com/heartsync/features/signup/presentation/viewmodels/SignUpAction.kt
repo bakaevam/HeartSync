@@ -3,7 +3,7 @@ package com.heartsync.features.signup.presentation.viewmodels
 import com.heartsync.core.base.Action
 import com.heartsync.features.signup.presentation.models.SocialSignUp
 
-interface SignUpAction : Action {
+sealed interface SignUpAction : Action {
 
     object OnContinueWithEmailClick : SignUpAction
 

@@ -5,6 +5,9 @@
     <string name="error_default">Что-то пошло не так</string>
     <string name="error_google_account">Google аккаунт не найден</string>
 
+    <!--Navigation-->
+    <string name="navigation_back">Назад</string>
+
     <!--Welcome-->
     <string name="welcome_create_account">Создать аккаунт</string>
     <string name="welcome_exist_account">Уже есть аккаунт?</string>
@@ -27,4 +30,10 @@
     <string name="sign_up_social">или зарегистрируйтесь с</string>
     <string name="sign_up_terms_of_use">Условия использования</string>
     <string name="sign_up_privacy_policy">Политика конфиденциальности</string>
+
+    <!--Enter Phone-->
+    <string name="enter_phone_title">Мой номер телефона</string>
+    <string name="enter_phone_description">Пожалуйста, введите свой действительный номер телефона. Мы вышлем вам 4-значный код для подтверждения вашей учетной записи.</string>
+    <string name="enter_phone_continue">Продолжить</string>
+    <string name="enter_phone_rus_prefix">(+7)</string>
 </resources>
