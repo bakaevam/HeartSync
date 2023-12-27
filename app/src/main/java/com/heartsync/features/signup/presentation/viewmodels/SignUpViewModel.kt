@@ -46,7 +46,7 @@ class SignUpViewModel(
     }
 
     private fun onUsePhoneClick() {
-        appNavigator.tryNavigateTo(Destination.EnterPhone.fullRoute)
+        appNavigator.tryNavigateTo(Destination.EnterPhoneScreen.fullRoute)
     }
 
     private companion object {

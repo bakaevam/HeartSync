@@ -22,5 +22,25 @@ sealed class Destination(
 
     object SignUpScreen : NoArgumentsDestination(Route.SIGN_UP.key)
 
-    object EnterPhone : NoArgumentsDestination(Route.ENTER_PHONE.key)
+    object EnterPhoneScreen : NoArgumentsDestination(Route.ENTER_PHONE.key)
+
+    object SmsCodeScreen : Destination(Route.SMS_CODE.key, "phone") {
+        const val KEY_PHONE = "phone"
+
+        operator fun invoke(phone: String): String = route.appendParams(
+            KEY_PHONE to phone,
+        )
+    }
+}
+
+internal fun String.appendParams(vararg params: Pair<String, Any?>): String {
+    val builder = StringBuilder(this)
+
+    params.forEach {
+        it.second?.toString()?.let { arg ->
+            builder.append("/$arg")
+        }
+    }
+
+    return builder.toString()
 }

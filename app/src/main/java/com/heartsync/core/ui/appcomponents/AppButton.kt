@@ -63,6 +63,7 @@ fun AppButton(
     text: String? = null,
     icon: Painter? = null,
     type: Type = Type.REGULAR,
+    enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
     val background = when (type) {
@@ -81,10 +82,12 @@ fun AppButton(
         modifier = modifier,
         colors = ButtonDefaults.buttonColors(
             containerColor = background,
+            disabledContainerColor = background,
         ),
         border = border,
         contentPadding = PaddingValues(16.dp),
         shape = MediumCornerShape,
+        enabled = enabled,
         onClick = onClick,
     ) {
         Row {
@@ -104,10 +107,18 @@ fun AppButton(
                     Type.OUTLINE, Type.GHOST -> MaterialTheme.colorScheme.primary
                     else -> MaterialTheme.colorScheme.onPrimary
                 }
+                val disableContentColor = when (type) {
+                    Type.OUTLINE, Type.GHOST -> MaterialTheme.colorScheme.outline
+                    else -> MaterialTheme.colorScheme.onPrimary
+                }
                 Text(
                     text = text,
                     style = MaterialTheme.typography.headlineMedium.copy(
-                        color = textColor,
+                        color = if (enabled) {
+                            textColor
+                        } else {
+                            disableContentColor
+                        },
                     ),
                 )
             }

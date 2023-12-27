@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.heartsync.core.base.MviViewModel
 import com.heartsync.core.tools.EMPTY_STRING
 import com.heartsync.core.tools.navigation.AppNavigator
+import com.heartsync.core.tools.navigation.Destination
 import com.heartsync.core.tools.validators.PhoneValidator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -24,12 +25,25 @@ class EnterPhoneViewModel(
     }
 
     override fun onAction(action: EnterPhoneAction) = when (action) {
-        is EnterPhoneAction.OnContinueClick -> {}
+        is EnterPhoneAction.OnContinueClick -> onContinueClick()
         is EnterPhoneAction.OnPhoneChange -> onPhoneChange(action)
         is EnterPhoneAction.OnBackClick -> appNavigator.tryNavigateBack()
     }
 
+    private fun onContinueClick() {
+        appNavigator.tryNavigateTo(
+            route = Destination.SmsCodeScreen(
+                phone = phoneFlow.value,
+            )
+        )
+    }
+
     private fun onPhoneChange(action: EnterPhoneAction.OnPhoneChange) {
         phoneFlow.value = PhoneValidator.validate(action.phone)
+        validate()
+    }
+
+    private fun validate() {
+        setState { copy(continueEnabled = PhoneValidator.isValid(phoneFlow.value)) }
     }
 }

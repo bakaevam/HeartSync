@@ -36,4 +36,9 @@
     <string name="enter_phone_description">Пожалуйста, введите свой действительный номер телефона. Мы вышлем вам 4-значный код для подтверждения вашей учетной записи.</string>
     <string name="enter_phone_continue">Продолжить</string>
     <string name="enter_phone_rus_prefix">(+7)</string>
+
+    <!--Sms code-->
+    <string name="sms_code_description">Введите проверочный код, который мы отправили вам</string>
+    <string name="sms_code_resend_code">Отправить ещё раз</string>
+    <string name="sms_code_timer">%02d:%02d</string>
 </resources>

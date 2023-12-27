@@ -8,4 +8,7 @@ object PhoneValidator {
         phone
             .filter(Char::isDigit)
             .take(MAX_PHONE_LENGTH)
+
+    fun isValid(phone: String): Boolean =
+        phone.length == MAX_PHONE_LENGTH
 }

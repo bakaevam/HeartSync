@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.heartsync.R
 import com.heartsync.core.ui.appcomponents.AppIcon
@@ -63,9 +65,15 @@ fun EnterPhoneField(
                 .background(color = MaterialTheme.colorScheme.outline),
         )
         BasicTextField(
-            modifier = Modifier.padding(start = 10.dp),
+            modifier = Modifier
+                .padding(start = 10.dp)
+                .weight(1f),
             value = state.phone,
             visualTransformation = PhoneVisualTransformation,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+                autoCorrect = false,
+            ),
             onValueChange = onPhoneChange,
         )
     }
