@@ -5,4 +5,5 @@ import com.heartsync.core.tools.EMPTY_STRING
 
 data class EnterPhoneState(
     val phone: String = EMPTY_STRING,
+    val continueEnabled: Boolean = false,
 ) : State

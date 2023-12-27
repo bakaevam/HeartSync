@@ -6,4 +6,5 @@ enum class Route(
     WELCOME("welcome"),
     SIGN_UP("sign_up"),
     ENTER_PHONE("enter_phone"),
+    SMS_CODE("sms_code"),
 }

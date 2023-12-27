@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.heartsync.R
 import com.heartsync.core.ui.appcomponents.AppButton
@@ -56,7 +57,7 @@ fun EnterPhoneBody(
         AppText(
             text = stringResource(R.string.enter_phone_title),
             style = MaterialTheme.typography.headlineLarge.copy(
-                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.Bold,
             ),
         )
         Spacer(Modifier.height(4.dp))
@@ -75,6 +76,7 @@ fun EnterPhoneBody(
                 .fillMaxWidth()
                 .padding(top = 24.dp),
             text = stringResource(R.string.enter_phone_continue),
+            enabled = state.continueEnabled,
             onClick = { onAction(EnterPhoneAction.OnContinueClick) },
         )
     }
