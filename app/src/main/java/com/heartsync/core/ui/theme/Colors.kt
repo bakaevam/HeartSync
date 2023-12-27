@@ -22,3 +22,8 @@ val Surface = Color(0xfffffbff)
 val OnSurface = Color(0xff201a1a)
 val SurfaceVariant = Color(0xfff4dddd)
 val OnSurfaceVariant = Color(0xFF524343)
+
+object AdditionalColor {
+
+    val Background = Color(0xfff3f3f3)
+}
