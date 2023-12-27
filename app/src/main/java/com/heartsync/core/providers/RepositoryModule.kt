@@ -2,6 +2,7 @@ package com.heartsync.core.providers
 
 import com.heartsync.core.network.db.FirebaseDatabase
 import com.heartsync.core.network.db.FirebaseDatabaseImpl
+import com.heartsync.core.providers.auth.FirebaseAuthProvider
 import com.heartsync.features.authphone.smscode.data.SmsCodeRepositoryImpl
 import com.heartsync.features.authphone.smscode.domain.SmsCodeRepository
 import com.heartsync.features.welcome.data.repositories.WelcomeRepositoryImpl
@@ -21,6 +22,7 @@ val repositoryModule = module {
     single<SmsCodeRepository> {
         SmsCodeRepositoryImpl(
             textProvider = get<TextProvider>(),
+            firebaseAuthProvider = get<FirebaseAuthProvider>(),
         )
     }
 }

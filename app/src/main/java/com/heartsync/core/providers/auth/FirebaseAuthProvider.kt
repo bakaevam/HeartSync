@@ -1,17 +1,63 @@
 package com.heartsync.core.providers.auth
 
+import android.app.Activity
+import android.util.Log
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.google.firebase.FirebaseException
+import com.google.firebase.FirebaseTooManyRequestsException
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthMissingActivityForRecaptchaException
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthOptions
+import com.google.firebase.auth.PhoneAuthProvider
+import com.heartsync.core.tools.EMPTY_STRING
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
+import java.util.concurrent.TimeUnit
 
 class FirebaseAuthProvider {
 
     private val firebaseAuth = FirebaseAuth.getInstance()
+    private val phoneAuthCallback =
+        object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                signInWithCredential(credential)
+            }
+
+            override fun onVerificationFailed(e: FirebaseException) {
+                Log.w(TAG, "onVerificationFailed", e)
+
+                if (e is FirebaseAuthInvalidCredentialsException) {
+                    // Invalid request
+                } else if (e is FirebaseTooManyRequestsException) {
+                    // The SMS quota for the project has been exceeded
+                } else if (e is FirebaseAuthMissingActivityForRecaptchaException) {
+                    // reCAPTCHA verification attempted with null Activity
+                }
+            }
+
+            override fun onCodeSent(
+                verificationId: String,
+                token: PhoneAuthProvider.ForceResendingToken
+            ) {
+                super.onCodeSent(verificationId, token)
+                storedVerificationId = verificationId
+                resendToken = token
+            }
+        }
+
+    private var storedVerificationId: String? = null
+    private var resendToken: PhoneAuthProvider.ForceResendingToken? = null
+
+    init {
+        firebaseAuth.setLanguageCode(LANGUAGE_RUS)
+    }
 
     fun getSignUpRequest(): BeginSignInRequest =
         BeginSignInRequest.builder()
@@ -26,8 +72,7 @@ class FirebaseAuthProvider {
 
     suspend fun signUpUser(idToken: String): AuthResult {
         val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
-        return firebaseAuth.signInWithCredential(firebaseCredential)
-            .await()
+        return signInWithCredential(firebaseCredential).await()
     }
 
     fun isAuthentication(): Flow<Boolean> = callbackFlow {
@@ -39,6 +84,27 @@ class FirebaseAuthProvider {
             firebaseAuth.removeAuthStateListener(authStateListener)
         }
     }
+
+    suspend fun signUpByPhone(code: String): AuthResult {
+        val credential = PhoneAuthProvider.getCredential(storedVerificationId ?: EMPTY_STRING, code)
+        return signInWithCredential(credential).await()
+    }
+
+    fun sendVerificationCode(
+        phoneNumber: String,
+        activity: Activity,
+    ) {
+        val options = PhoneAuthOptions.newBuilder(firebaseAuth)
+            .setPhoneNumber(phoneNumber) // Phone number to verify
+            .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+            .setActivity(activity) // Activity (for callback binding)
+            .setCallbacks(phoneAuthCallback) // OnVerificationStateChangedCallbacks
+            .build()
+        PhoneAuthProvider.verifyPhoneNumber(options)
+    }
+
+    private fun signInWithCredential(credential: AuthCredential) =
+        firebaseAuth.signInWithCredential(credential)
 
     private fun getSignInRequestOptions(): BeginSignInRequest.GoogleIdTokenRequestOptions =
         BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
@@ -58,5 +124,7 @@ class FirebaseAuthProvider {
 
         private const val CLIENT_ID =
             "392883523693-o7bsl5flau9kv92pn0tn3kcopsbsqp2m.apps.googleusercontent.com"
+        private const val LANGUAGE_RUS = "ru"
+        private const val TAG = "Firebase Auth Provider"
     }
 }

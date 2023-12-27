@@ -8,6 +8,8 @@ sealed interface EnterPhoneAction : Action {
 
     object OnBackClick : EnterPhoneAction
 
+    object OnNavigateSmsCode : EnterPhoneAction
+
     class OnPhoneChange(
         val phone: String,
     ) : EnterPhoneAction
