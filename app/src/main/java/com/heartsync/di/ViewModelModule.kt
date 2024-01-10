@@ -6,6 +6,7 @@ import com.heartsync.core.tools.navigation.AppNavigator
 import com.heartsync.features.authphone.editnumber.presentation.viewmodels.EnterPhoneViewModel
 import com.heartsync.features.authphone.smscode.domain.SmsCodeRepository
 import com.heartsync.features.authphone.smscode.presentation.viewmodels.SmsCodeViewModel
+import com.heartsync.features.discovery.presentation.viewmodels.DiscoveryViewModel
 import com.heartsync.features.main.presentation.viewmodels.MainViewModel
 import com.heartsync.features.signup.presentation.viewmodels.SignUpViewModel
 import com.heartsync.features.welcome.domain.repositories.WelcomeRepository
@@ -42,5 +43,8 @@ val viewModelModule = module {
             smsCodeRepository = get<SmsCodeRepository>(),
             savedStateHandle = arguments,
         )
+    }
+    viewModel {
+        DiscoveryViewModel()
     }
 }

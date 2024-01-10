@@ -41,4 +41,7 @@
     <string name="sms_code_description">Введите проверочный код, который мы отправили вам</string>
     <string name="sms_code_resend_code">Отправить ещё раз</string>
     <string name="sms_code_timer">%02d:%02d</string>
+
+    <!--Discovery-->
+    <string name="discovery_title">Сердца</string>
 </resources>

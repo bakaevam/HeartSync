@@ -7,6 +7,7 @@ import com.heartsync.core.providers.auth.FirebaseAuthProvider
 import com.heartsync.core.tools.navigation.AppNavigator
 import com.heartsync.core.tools.navigation.Route
 import com.heartsync.features.main.presentation.models.UiBottomItem
+import com.heartsync.features.main.presentation.models.UiNavItem
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -14,7 +15,28 @@ import kotlinx.coroutines.flow.onEach
 class MainViewModel(
     appNavigator: AppNavigator,
     firebaseAuthProvider: FirebaseAuthProvider,
-) : MviViewModel<MainState, MainEffect, MainAction>(MainState()) {
+) : MviViewModel<MainState, MainEffect, MainAction>(
+    MainState(
+        bottomNavItems = listOf(
+            UiNavItem(
+                bottomItem = UiBottomItem.DISCOVERY,
+                badgeText = null,
+            ),
+            UiNavItem(
+                bottomItem = UiBottomItem.MATCHERS,
+                badgeText = null,
+            ),
+            UiNavItem(
+                bottomItem = UiBottomItem.MESSAGES,
+                badgeText = null,
+            ),
+            UiNavItem(
+                bottomItem = UiBottomItem.MENU,
+                badgeText = null,
+            ),
+        ),
+    )
+) {
 
     val navigationChannel = appNavigator.navigationChannel
     private val currentNavItemFlow = MutableStateFlow<UiBottomItem?>(null)
@@ -23,7 +45,12 @@ class MainViewModel(
         firebaseAuthProvider.isAuthentication()
             .onEach { authentication ->
                 if (authentication) {
-
+                    appNavigator.tryNavigateTo(
+                        route = Route.DISCOVERY.key,
+                        inclusive = true,
+                        isSingleTop = true,
+                        popBackStack = true,
+                    )
                 } else {
                     appNavigator.tryNavigateTo(
                         route = Route.WELCOME.key,
