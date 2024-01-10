@@ -28,6 +28,7 @@ interface AppNavigator {
         popUpToRoute: String? = null,
         inclusive: Boolean = false,
         isSingleTop: Boolean = false,
+        popBackStack: Boolean = false,
     )
 }
 
@@ -43,5 +44,6 @@ sealed class NavigationIntent {
         val popUpToRoute: String? = null,
         val inclusive: Boolean = false,
         val isSingleTop: Boolean = false,
+        val popBackStack: Boolean = false,
     ) : NavigationIntent()
 }

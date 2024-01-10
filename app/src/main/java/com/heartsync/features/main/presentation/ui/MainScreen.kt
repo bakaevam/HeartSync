@@ -19,6 +19,7 @@ import com.heartsync.core.tools.navigation.composable
 import com.heartsync.core.ui.theme.HeartSyncTheme
 import com.heartsync.features.authphone.editnumber.presentation.ui.EnterPhoneScreen
 import com.heartsync.features.authphone.smscode.presentation.ui.SmsCodeScreen
+import com.heartsync.features.discovery.presentation.ui.DiscoveryScreen
 import com.heartsync.features.main.presentation.viewmodels.MainAction
 import com.heartsync.features.main.presentation.viewmodels.MainViewModel
 import com.heartsync.features.signup.presentation.ui.SignUpScreen
@@ -73,6 +74,10 @@ fun MainScreen(
                     }
                     composable(destination = Destination.SmsCodeScreen) {
                         SmsCodeScreen()
+                    }
+                    composable(destination = Destination.DiscoveryScreen) {
+                        mainViewModel.onAction(MainAction.OnNavigateDiscovery)
+                        DiscoveryScreen()
                     }
                 }
             }

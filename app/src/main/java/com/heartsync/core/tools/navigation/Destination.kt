@@ -24,6 +24,8 @@ sealed class Destination(
 
     object EnterPhoneScreen : NoArgumentsDestination(Route.ENTER_PHONE.key)
 
+    object DiscoveryScreen : NoArgumentsDestination(Route.DISCOVERY.key)
+
     object SmsCodeScreen : Destination(Route.SMS_CODE.key, "phone") {
         const val KEY_PHONE = "phone"
 

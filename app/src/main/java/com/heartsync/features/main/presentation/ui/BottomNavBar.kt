@@ -23,22 +23,18 @@ private fun Preview() {
             items = listOf(
                 UiNavItem(
                     bottomItem = UiBottomItem.DISCOVERY,
-                    selected = true,
                     badgeText = null,
                 ),
                 UiNavItem(
                     bottomItem = UiBottomItem.MATCHERS,
-                    selected = true,
                     badgeText = null,
                 ),
                 UiNavItem(
                     bottomItem = UiBottomItem.MESSAGES,
-                    selected = true,
                     badgeText = null,
                 ),
                 UiNavItem(
                     bottomItem = UiBottomItem.MENU,
-                    selected = true,
                     badgeText = null,
                 ),
             ),

@@ -29,6 +29,9 @@ fun NavigationEffects(
                 }
 
                 is NavigationIntent.NavigateTo -> {
+                    if (intent.popBackStack) {
+                        navHostController.popBackStack()
+                    }
                     navHostController.navigate(intent.route) {
                         launchSingleTop = intent.isSingleTop
                         intent.popUpToRoute?.let { popUpToRoute ->

@@ -48,7 +48,8 @@ class AppNavigatorImpl : AppNavigator {
         route: String,
         popUpToRoute: String?,
         inclusive: Boolean,
-        isSingleTop: Boolean
+        isSingleTop: Boolean,
+        popBackStack: Boolean,
     ) {
         navigationChannel.trySend(
             NavigationIntent.NavigateTo(
@@ -56,6 +57,7 @@ class AppNavigatorImpl : AppNavigator {
                 popUpToRoute = popUpToRoute,
                 inclusive = inclusive,
                 isSingleTop = isSingleTop,
+                popBackStack = popBackStack,
             )
         )
     }
