@@ -24,6 +24,8 @@ sealed class Destination(
 
     object EnterPhoneScreen : NoArgumentsDestination(Route.ENTER_PHONE.key)
 
+    object EnterEmailScreen : NoArgumentsDestination(Route.ENTER_EMAIL.key)
+
     object DiscoveryScreen : NoArgumentsDestination(Route.DISCOVERY.key)
 
     object SmsCodeScreen : Destination(Route.SMS_CODE.key, "phone") {

@@ -42,6 +42,10 @@
     <string name="sms_code_resend_code">Отправить ещё раз</string>
     <string name="sms_code_timer">%02d:%02d</string>
 
+    <!--Enter email-->
+    <string name="enter_email_title">Моя электронная почта</string>
+    <string name="enter_email_description">Пожалуйста, введите свою действительную электронную почту. Мы вышлем вам ссылку для подтверждения вашей учетной записи.</string>
+
     <!--Discovery-->
     <string name="discovery_title">Сердца</string>
 </resources>

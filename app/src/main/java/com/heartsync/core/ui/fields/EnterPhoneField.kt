@@ -1,4 +1,4 @@
-package com.heartsync.features.authphone.editnumber.presentation.ui
+package com.heartsync.core.ui.fields
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

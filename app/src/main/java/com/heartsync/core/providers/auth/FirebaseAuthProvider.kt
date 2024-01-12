@@ -7,6 +7,7 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthMissingActivityForRecaptchaException
@@ -14,7 +15,9 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.auth.actionCodeSettings
 import com.heartsync.core.tools.EMPTY_STRING
+import com.heartsync.core.tools.PACKAGE_NAME
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -103,6 +106,28 @@ class FirebaseAuthProvider {
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
 
+    suspend fun sendEmailLink(email: String) {
+        val settings = actionCodeSettings {
+            url = URL_FINISH_SIGN_UP + email
+            handleCodeInApp = true
+            dynamicLinkDomain = DOMAIN_NAME
+            setAndroidPackageName(
+                PACKAGE_NAME,
+                true, // installIfNotAvailable
+                "1.0", // minimumVersion
+            )
+        }
+        firebaseAuth.sendSignInLinkToEmail(email, settings).await()
+    }
+
+    suspend fun signUpByEmail(emailLink: String, email: String) {
+        if (firebaseAuth.isSignInWithEmailLink(emailLink)) {
+            val credential = EmailAuthProvider.getCredentialWithLink(email, emailLink)
+            //Firebase.auth.currentUser?.linkWithCredential(credential)?.await()
+            firebaseAuth.signInWithEmailLink(email, emailLink).await()
+        }
+    }
+
     private fun signInWithCredential(credential: AuthCredential) =
         firebaseAuth.signInWithCredential(credential)
 
@@ -120,11 +145,16 @@ class FirebaseAuthProvider {
             .setFilterByAuthorizedAccounts(false)
             .build()
 
-    private companion object {
+    companion object {
+
+        const val KEY_EMAIL = "email"
+        const val URL_FINISH_SIGN_UP = "https://heartsync.page.link/finishSignUp/?$KEY_EMAIL="
+        const val CONTINUE_URL = "continueUrl"
 
         private const val CLIENT_ID =
             "392883523693-o7bsl5flau9kv92pn0tn3kcopsbsqp2m.apps.googleusercontent.com"
         private const val LANGUAGE_RUS = "ru"
         private const val TAG = "Firebase Auth Provider"
+        private const val DOMAIN_NAME = "heartsync.page.link"
     }
 }
