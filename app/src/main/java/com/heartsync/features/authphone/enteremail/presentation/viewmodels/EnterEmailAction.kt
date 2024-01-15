@@ -11,4 +11,12 @@ sealed interface EnterEmailAction : Action {
     class OnEmailChange(
         val email: String,
     ) : EnterEmailAction
+
+    class OnPasswordChange(
+        val password: String,
+    ) : EnterEmailAction
+
+    class OnRepeatPasswordChange(
+        val repeatPassword: String,
+    ) : EnterEmailAction
 }

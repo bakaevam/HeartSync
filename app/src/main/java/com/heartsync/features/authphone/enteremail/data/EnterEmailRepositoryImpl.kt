@@ -7,6 +7,9 @@ class EnterEmailRepositoryImpl(
     private val firebaseAuthProvider: FirebaseAuthProvider,
 ) : EnterEmailRepository {
 
+    override suspend fun signUpWithPassword(email: String, password: String) =
+        firebaseAuthProvider.signUpWithPassword(email, password)
+
     override suspend fun sendEmailLink(email: String) {
         firebaseAuthProvider.sendEmailLink(email)
     }

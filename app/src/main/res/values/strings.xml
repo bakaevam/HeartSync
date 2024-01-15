@@ -4,6 +4,7 @@
     <!--Errors-->
     <string name="error_default">Что-то пошло не так</string>
     <string name="error_google_account">Google аккаунт не найден</string>
+    <string name="error_email_exist">Почта уже зарегистрирована</string>
 
     <!--Navigation-->
     <string name="navigation_back">Назад</string>
@@ -44,7 +45,10 @@
 
     <!--Enter email-->
     <string name="enter_email_title">Моя электронная почта</string>
-    <string name="enter_email_description">Пожалуйста, введите свою действительную электронную почту. Мы вышлем вам ссылку для подтверждения вашей учетной записи.</string>
+    <string name="enter_email_description">Пожалуйста, введите свою действительную электронную почту. Придумайте пароль длинной минимум 6 символов.</string>
+    <string name="enter_email_placeholder">Почта</string>
+    <string name="enter_email_password">Пароль</string>
+    <string name="enter_email_repeat_password">Повторите пароль</string>
 
     <!--Discovery-->
     <string name="discovery_title">Сердца</string>

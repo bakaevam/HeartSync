@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -77,18 +76,48 @@ fun EnterEmailBody(
             value = state.email,
             singleLine = true,
             autoFocus = true,
+            placeholder = stringResource(R.string.enter_email_placeholder),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Email,
                 autoCorrect = false,
                 imeAction = ImeAction.Done,
                 capitalization = KeyboardCapitalization.None,
             ),
-            keyboardActions = KeyboardActions(
-                onDone = {
-                    onAction(EnterEmailAction.OnContinueClick)
-                },
-            ),
             onValueChange = { email -> onAction(EnterEmailAction.OnEmailChange(email)) },
+        )
+        Spacer(Modifier.height(4.dp))
+        AppTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = state.password,
+            singleLine = true,
+            placeholder = stringResource(R.string.enter_email_password),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Password,
+                autoCorrect = false,
+                imeAction = ImeAction.Done,
+                capitalization = KeyboardCapitalization.None,
+            ),
+            onValueChange = { password -> onAction(EnterEmailAction.OnPasswordChange(password)) },
+        )
+        Spacer(Modifier.height(4.dp))
+        AppTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = state.repeatPassword,
+            singleLine = true,
+            placeholder = stringResource(R.string.enter_email_repeat_password),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Password,
+                autoCorrect = false,
+                imeAction = ImeAction.Done,
+                capitalization = KeyboardCapitalization.None,
+            ),
+            onValueChange = { repeatPassword ->
+                onAction(
+                    EnterEmailAction.OnRepeatPasswordChange(
+                        repeatPassword
+                    )
+                )
+            },
         )
         AppButton(
             modifier = Modifier

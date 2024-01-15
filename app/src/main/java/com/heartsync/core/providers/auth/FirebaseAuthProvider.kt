@@ -128,6 +128,19 @@ class FirebaseAuthProvider {
         }
     }
 
+    suspend fun signUpWithPassword(
+        email: String,
+        password: String,
+    ): AuthResult =
+        firebaseAuth.createUserWithEmailAndPassword(email, password).await()
+
+    suspend fun signInWithPassword(
+        email: String,
+        password: String,
+    ) {
+        firebaseAuth.signInWithEmailAndPassword(email, password).await()
+    }
+
     private fun signInWithCredential(credential: AuthCredential) =
         firebaseAuth.signInWithCredential(credential)
 
