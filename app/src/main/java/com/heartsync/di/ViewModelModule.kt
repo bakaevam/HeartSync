@@ -1,6 +1,7 @@
 package com.heartsync.di
 
 import androidx.lifecycle.SavedStateHandle
+import com.heartsync.core.providers.TextProvider
 import com.heartsync.core.providers.auth.FirebaseAuthProvider
 import com.heartsync.core.tools.navigation.AppNavigator
 import com.heartsync.features.authphone.editnumber.presentation.viewmodels.EnterPhoneViewModel
@@ -51,6 +52,7 @@ val viewModelModule = module {
         EnterEmailViewModel(
             appNavigator = get<AppNavigator>(),
             enterEmailRepository = get<EnterEmailRepository>(),
+            textProvider = get<TextProvider>(),
         )
     }
     viewModel {
