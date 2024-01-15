@@ -5,3 +5,4 @@ const val INT_ZERO = 0
 const val LONG_ZERO = 0L
 
 const val BASE_URL = "https://heartsync-54d4a.web.app"
+const val PACKAGE_NAME = "com.heartsync"

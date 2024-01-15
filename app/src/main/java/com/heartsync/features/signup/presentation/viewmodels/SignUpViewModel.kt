@@ -24,7 +24,7 @@ class SignUpViewModel(
         is SignUpAction.OnGetIdToken -> onGetIdToken(action)
         is SignUpAction.OnTermsOfUseClick -> postEffect(SignUpEffect.OpenWebPage(BASE_URL + TERMS_OF_USE))
         is SignUpAction.OnPrivacyPolicyClick -> postEffect(SignUpEffect.OpenWebPage(BASE_URL + PRIVACY_POLICY))
-        is SignUpAction.OnContinueWithEmailClick -> {}
+        is SignUpAction.OnContinueWithEmailClick -> appNavigator.tryNavigateTo(Destination.EnterEmailScreen.fullRoute)
         is SignUpAction.OnUsePhoneClick -> onUsePhoneClick()
     }
 
