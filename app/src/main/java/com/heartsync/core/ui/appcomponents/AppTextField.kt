@@ -5,7 +5,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -86,7 +85,7 @@ fun AppTextField(
                 placeholder = placeholder?.let { text ->
                     {
                         Box(
-                            modifier = Modifier.fillMaxSize(),
+                            modifier = Modifier,
                             contentAlignment = Alignment.TopStart,
                         ) {
                             AppText(

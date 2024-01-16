@@ -9,6 +9,10 @@
 
     <!--Navigation-->
     <string name="navigation_back">Назад</string>
+    <string name="navigation_skip">Пропустить</string>
+
+    <!--Actions-->
+    <string name="action_save">Сохранить</string>
 
     <!--Welcome-->
     <string name="welcome_create_account">Создать аккаунт</string>
@@ -53,6 +57,12 @@
     <string name="enter_email_placeholder">Почта</string>
     <string name="enter_email_password">Пароль</string>
     <string name="enter_email_repeat_password">Повторите пароль</string>
+
+    <!--Profile Detail-->
+    <string name="profile_detail_title">Личная информация</string>
+    <string name="profile_detail_name_placeholder">Имя</string>
+    <string name="profile_detail_lastname_placeholder">Фамилия</string>
+    <string name="profile_detail_birthday_placeholder">Выберите дату рождения</string>
 
     <!--Discovery-->
     <string name="discovery_title">Сердца</string>
