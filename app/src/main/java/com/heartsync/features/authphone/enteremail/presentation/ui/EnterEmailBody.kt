@@ -67,7 +67,7 @@ fun EnterEmailBody(
         )
         Spacer(Modifier.height(4.dp))
         AppText(
-            text = stringResource(R.string.enter_email_description),
+            text = state.description,
             style = MaterialTheme.typography.bodyMedium,
         )
         Spacer(Modifier.height(24.dp))
@@ -99,26 +99,28 @@ fun EnterEmailBody(
             ),
             onValueChange = { password -> onAction(EnterEmailAction.OnPasswordChange(password)) },
         )
-        Spacer(Modifier.height(4.dp))
-        AppTextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = state.repeatPassword,
-            singleLine = true,
-            placeholder = stringResource(R.string.enter_email_repeat_password),
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Password,
-                autoCorrect = false,
-                imeAction = ImeAction.Done,
-                capitalization = KeyboardCapitalization.None,
-            ),
-            onValueChange = { repeatPassword ->
-                onAction(
-                    EnterEmailAction.OnRepeatPasswordChange(
-                        repeatPassword
+        if (state.repeatPasswordVisible) {
+            Spacer(Modifier.height(4.dp))
+            AppTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = state.repeatPassword,
+                singleLine = true,
+                placeholder = stringResource(R.string.enter_email_repeat_password),
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Password,
+                    autoCorrect = false,
+                    imeAction = ImeAction.Done,
+                    capitalization = KeyboardCapitalization.None,
+                ),
+                onValueChange = { repeatPassword ->
+                    onAction(
+                        EnterEmailAction.OnRepeatPasswordChange(
+                            repeatPassword
+                        )
                     )
-                )
-            },
-        )
+                },
+            )
+        }
         AppButton(
             modifier = Modifier
                 .fillMaxWidth()

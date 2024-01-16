@@ -31,10 +31,12 @@ val viewModelModule = module {
             welcomeRepository = get<WelcomeRepository>(),
         )
     }
-    viewModel {
+    viewModel { (arguments: SavedStateHandle) ->
         SignUpViewModel(
             appNavigator = get<AppNavigator>(),
             firebaseAuthProvider = get<FirebaseAuthProvider>(),
+            savedStateHandle = arguments,
+            textProvider = get<TextProvider>(),
         )
     }
     viewModel {
@@ -48,11 +50,12 @@ val viewModelModule = module {
             savedStateHandle = arguments,
         )
     }
-    viewModel {
+    viewModel { (arguments: SavedStateHandle) ->
         EnterEmailViewModel(
             appNavigator = get<AppNavigator>(),
             enterEmailRepository = get<EnterEmailRepository>(),
             textProvider = get<TextProvider>(),
+            savedStateHandle = arguments,
         )
     }
     viewModel {

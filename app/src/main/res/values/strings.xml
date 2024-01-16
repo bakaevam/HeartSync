@@ -5,6 +5,7 @@
     <string name="error_default">Что-то пошло не так</string>
     <string name="error_google_account">Google аккаунт не найден</string>
     <string name="error_email_exist">Почта уже зарегистрирована</string>
+    <string name="error_bad_credentials">Неправильно введены почта или пароль</string>
 
     <!--Navigation-->
     <string name="navigation_back">Назад</string>
@@ -26,9 +27,11 @@
 
     <!--Sign up-->
     <string name="sign_up_continue">Зарегистрируйтесь, чтобы продолжить</string>
+    <string name="sign_up_in_continue">Войдите, чтобы продолжить</string>
     <string name="sign_up_email">Продолжить с почтой</string>
     <string name="sign_up_phone">Использовать номер телефона</string>
     <string name="sign_up_social">или зарегистрируйтесь с</string>
+    <string name="sign_up_in_social">или войдите с</string>
     <string name="sign_up_terms_of_use">Условия использования</string>
     <string name="sign_up_privacy_policy">Политика конфиденциальности</string>
 
@@ -45,7 +48,8 @@
 
     <!--Enter email-->
     <string name="enter_email_title">Моя электронная почта</string>
-    <string name="enter_email_description">Пожалуйста, введите свою действительную электронную почту. Придумайте пароль длинной минимум 6 символов.</string>
+    <string name="enter_email_description_sign_up">Пожалуйста, введите свою действительную электронную почту. Придумайте пароль длинной минимум 6 символов.</string>
+    <string name="enter_email_description_sign_in">Пожалуйста, введите свою электронную почту и пароль.</string>
     <string name="enter_email_placeholder">Почта</string>
     <string name="enter_email_password">Пароль</string>
     <string name="enter_email_repeat_password">Повторите пароль</string>

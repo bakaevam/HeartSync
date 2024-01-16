@@ -4,9 +4,9 @@ enum class Route(
     val key: String,
 ) {
     WELCOME("welcome"),
-    SIGN_UP("sign_up"),
+    SIGN_UP("sign_up/{scenario}"),
     ENTER_PHONE("enter_phone"),
-    ENTER_EMAIL("enter_email"),
+    ENTER_EMAIL("enter_email/{scenario}"),
     SMS_CODE("sms_code"),
     DISCOVERY("discovery")
 }

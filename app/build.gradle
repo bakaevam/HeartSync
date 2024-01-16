@@ -34,12 +34,14 @@ android {
 
     buildTypes {
         debug {
+            signingConfig signingConfigs.release
             buildConfigField "String", "BASE_URL", "\"https://heartsync-54d4a.web.app\""
         }
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BASE_URL", "\"https://heartsync-54d4a.web.app\""
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {

@@ -2,7 +2,7 @@ package com.heartsync.features.welcome.presentation.viewmodels
 
 import com.heartsync.core.base.Action
 
-interface WelcomeAction : Action {
+sealed interface WelcomeAction : Action {
 
     object OnCreateAccountClick : WelcomeAction
 
