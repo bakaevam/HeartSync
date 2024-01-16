@@ -8,5 +8,6 @@ enum class Route(
     ENTER_PHONE("enter_phone"),
     ENTER_EMAIL("enter_email/{scenario}"),
     SMS_CODE("sms_code"),
+    PROFILE_DETAIL("profile_detail"),
     DISCOVERY("discovery")
 }

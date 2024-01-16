@@ -59,6 +59,8 @@ sealed class Destination(
         )
     }
 
+    object ProfileDetailScreen : NoArgumentsDestination(Route.PROFILE_DETAIL.key)
+
     object DiscoveryScreen : NoArgumentsDestination(Route.DISCOVERY.key)
 
     object SmsCodeScreen : Destination(Route.SMS_CODE.key, params = arrayOf("phone")) {

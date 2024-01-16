@@ -28,6 +28,7 @@ import com.heartsync.features.discovery.presentation.ui.DiscoveryScreen
 import com.heartsync.features.main.presentation.viewmodels.MainAction
 import com.heartsync.features.main.presentation.viewmodels.MainEffect
 import com.heartsync.features.main.presentation.viewmodels.MainViewModel
+import com.heartsync.features.profiledetail.presentation.ui.ProfileDetailScreen
 import com.heartsync.features.signup.presentation.ui.SignUpScreen
 import com.heartsync.features.welcome.presentation.ui.WelcomeScreen
 
@@ -90,6 +91,9 @@ fun MainScreen(
                     }
                     composable(destination = Destination.SmsCodeScreen) {
                         SmsCodeScreen()
+                    }
+                    composable(destination = Destination.ProfileDetailScreen) {
+                        ProfileDetailScreen()
                     }
                     composable(destination = Destination.DiscoveryScreen) {
                         viewModel.onAction(MainAction.OnNavigateDiscovery)
