@@ -1,7 +1,13 @@
 package com.heartsync.core.tools.navigation
 
+import androidx.navigation.NamedNavArgument
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
+import com.heartsync.features.welcome.domain.models.AuthScenario
+
 sealed class Destination(
     protected val route: String,
+    val arguments: List<NamedNavArgument> = emptyList(),
     vararg params: String,
 ) {
 
@@ -20,15 +26,42 @@ sealed class Destination(
 
     object WelcomeScreen : NoArgumentsDestination(Route.WELCOME.key)
 
-    object SignUpScreen : NoArgumentsDestination(Route.SIGN_UP.key)
+    object SignUpScreen : Destination(
+        route = Route.SIGN_UP.key,
+        arguments = listOf(
+            navArgument("scenario") {
+                type = NavType.EnumType(AuthScenario::class.java)
+            },
+        )
+    ) {
+        const val KEY_SCENARIO = "scenario"
+
+        operator fun invoke(scenario: AuthScenario): String = route.appendParams(
+            KEY_SCENARIO to scenario,
+        )
+    }
 
     object EnterPhoneScreen : NoArgumentsDestination(Route.ENTER_PHONE.key)
 
-    object EnterEmailScreen : NoArgumentsDestination(Route.ENTER_EMAIL.key)
+    object EnterEmailScreen : Destination(
+        route = Route.ENTER_EMAIL.key,
+        arguments = listOf(
+            navArgument("scenario") {
+                type = NavType.EnumType(AuthScenario::class.java)
+            },
+        ),
+    ) {
+
+        const val KEY_SCENARIO = "scenario"
+
+        operator fun invoke(scenario: AuthScenario): String = route.appendParams(
+            KEY_SCENARIO to scenario,
+        )
+    }
 
     object DiscoveryScreen : NoArgumentsDestination(Route.DISCOVERY.key)
 
-    object SmsCodeScreen : Destination(Route.SMS_CODE.key, "phone") {
+    object SmsCodeScreen : Destination(Route.SMS_CODE.key, params = arrayOf("phone")) {
         const val KEY_PHONE = "phone"
 
         operator fun invoke(phone: String): String = route.appendParams(
@@ -41,10 +74,18 @@ internal fun String.appendParams(vararg params: Pair<String, Any?>): String {
     val builder = StringBuilder(this)
 
     params.forEach {
-        it.second?.toString()?.let { arg ->
-            builder.append("/$arg")
+        if (!this.contains(it.first)) {
+            it.second?.toString()?.let { arg ->
+                builder.append("/$arg")
+            }
+        }
+    }
+    var str = builder.toString()
+    params.forEach { param ->
+        if (str.contains(param.first)) {
+            str = str.replace('{' + param.first + '}', param.second.toString())
         }
     }
 
-    return builder.toString()
+    return str
 }

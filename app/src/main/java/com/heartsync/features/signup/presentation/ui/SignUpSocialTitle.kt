@@ -9,9 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.heartsync.R
 import com.heartsync.core.ui.appcomponents.AppText
 import com.heartsync.core.ui.theme.HeartSyncTheme
 import com.heartsync.core.ui.tools.AppPreview
@@ -20,12 +18,15 @@ import com.heartsync.core.ui.tools.AppPreview
 @Composable
 private fun Preview() {
     HeartSyncTheme {
-        SignUpSocialTitle()
+        SignUpSocialTitle(
+            title = "Или зарегистрируйтесь с",
+        )
     }
 }
 
 @Composable
 fun SignUpSocialTitle(
+    title: String,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -40,7 +41,7 @@ fun SignUpSocialTitle(
         )
         AppText(
             modifier = Modifier.padding(horizontal = 14.dp),
-            text = stringResource(R.string.sign_up_social),
+            text = title,
             style = MaterialTheme.typography.bodySmall,
         )
         Spacer(

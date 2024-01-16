@@ -9,6 +9,11 @@ interface EnterEmailRepository {
         password: String,
     ): AuthResult
 
+    suspend fun signInWithPassword(
+        email: String,
+        password: String,
+    ): AuthResult
+
     suspend fun sendEmailLink(email: String)
 
     suspend fun signUpByEmail(

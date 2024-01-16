@@ -7,7 +7,6 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthMissingActivityForRecaptchaException
@@ -122,8 +121,6 @@ class FirebaseAuthProvider {
 
     suspend fun signUpByEmail(emailLink: String, email: String) {
         if (firebaseAuth.isSignInWithEmailLink(emailLink)) {
-            val credential = EmailAuthProvider.getCredentialWithLink(email, emailLink)
-            //Firebase.auth.currentUser?.linkWithCredential(credential)?.await()
             firebaseAuth.signInWithEmailLink(email, emailLink).await()
         }
     }
@@ -137,9 +134,8 @@ class FirebaseAuthProvider {
     suspend fun signInWithPassword(
         email: String,
         password: String,
-    ) {
+    ): AuthResult =
         firebaseAuth.signInWithEmailAndPassword(email, password).await()
-    }
 
     private fun signInWithCredential(credential: AuthCredential) =
         firebaseAuth.signInWithCredential(credential)

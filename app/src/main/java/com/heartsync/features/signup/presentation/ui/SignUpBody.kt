@@ -56,7 +56,7 @@ fun SignUpBody(
         AppIcon(painter = painterResource(R.drawable.ic_logo))
         Spacer(Modifier.height(40.dp))
         AppText(
-            text = stringResource(R.string.sign_up_continue),
+            text = state.title,
             style = MaterialTheme.typography.titleSmall,
         )
         Spacer(Modifier.height(24.dp))
@@ -74,7 +74,9 @@ fun SignUpBody(
         )
         Spacer(Modifier.height(60.dp))
         if (state.socialSignUp.isNotEmpty()) {
-            SignUpSocialTitle()
+            SignUpSocialTitle(
+                title = state.socialTitle,
+            )
             Spacer(Modifier.height(24.dp))
             SocialSignUp(
                 socialSignUp = state.socialSignUp,
