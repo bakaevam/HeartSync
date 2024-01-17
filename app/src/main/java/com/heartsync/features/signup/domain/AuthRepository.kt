@@ -1,6 +1,7 @@
 package com.heartsync.features.signup.domain
 
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
 
@@ -23,4 +24,10 @@ interface AuthRepository {
     suspend fun signInByToken(token: String)
 
     fun getSignUpRequest(): BeginSignInRequest
+
+    fun observeNewUser(): Flow<String?>
+
+    fun resetNewUser()
+
+    fun isAuthentication(): Flow<Boolean>
 }

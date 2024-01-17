@@ -40,8 +40,8 @@ class ProfileDetailViewModel(
         is ProfileDetailAction.OnNameChange -> onNameChange(action)
         is ProfileDetailAction.OnSaveClick -> onSaveClick()
         is ProfileDetailAction.OnSkipClick -> onSkipClick()
-        is ProfileDetailAction.OnEditAvatarClick -> TODO()
-        is ProfileDetailAction.OnBirthdayClick -> TODO()
+        is ProfileDetailAction.OnEditAvatarClick -> {}
+        is ProfileDetailAction.OnBirthdayClick -> {}
     }
 
     private fun onNameChange(action: ProfileDetailAction.OnNameChange) {
