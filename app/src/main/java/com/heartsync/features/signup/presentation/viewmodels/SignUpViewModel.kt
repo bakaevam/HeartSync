@@ -6,19 +6,19 @@ import androidx.lifecycle.viewModelScope
 import com.heartsync.R
 import com.heartsync.core.base.MviViewModel
 import com.heartsync.core.providers.TextProvider
-import com.heartsync.core.providers.auth.FirebaseAuthProvider
 import com.heartsync.core.tools.BASE_URL
 import com.heartsync.core.tools.navigation.AppNavigator
 import com.heartsync.core.tools.navigation.Destination
+import com.heartsync.features.signup.domain.AuthRepository
 import com.heartsync.features.signup.presentation.models.SocialSignUp
 import com.heartsync.features.welcome.domain.models.AuthScenario
 import kotlinx.coroutines.launch
 
 class SignUpViewModel(
     private val appNavigator: AppNavigator,
-    private val firebaseAuthProvider: FirebaseAuthProvider,
     private val savedStateHandle: SavedStateHandle,
     private val textProvider: TextProvider,
+    private val authRepository: AuthRepository,
 ) : MviViewModel<SignUpState, SignUpEffect, SignUpAction>(
     SignUpState(
         socialSignUp = listOf(SocialSignUp.GOOGLE),
@@ -48,15 +48,17 @@ class SignUpViewModel(
 
     private fun onSocialSignUpClick(socialSignUp: SocialSignUp) {
         when (socialSignUp) {
-            SocialSignUp.GOOGLE -> postEffect(SignUpEffect.SignUpViaGoogle(firebaseAuthProvider.getSignUpRequest()))
+            SocialSignUp.GOOGLE -> postEffect(SignUpEffect.SignUpViaGoogle(authRepository.getSignUpRequest()))
         }
     }
 
     private fun onGetIdToken(action: SignUpAction.OnGetIdToken) {
         viewModelScope.launch {
             try {
-                val authResult = firebaseAuthProvider.signUpUser(action.idToken)
-                Log.e(TAG, "Success sign up by social $authResult")
+                when (params.authScenario) {
+                    AuthScenario.SIGN_UP -> authRepository.signUpByToken(action.idToken)
+                    else -> authRepository.signInByToken(action.idToken)
+                }
             } catch (e: Throwable) {
                 Log.e(TAG, "Failed to sign up by social", e)
             }

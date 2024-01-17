@@ -12,7 +12,7 @@ import com.heartsync.core.tools.EMPTY_STRING
 import com.heartsync.core.tools.navigation.AppNavigator
 import com.heartsync.core.tools.navigation.Destination
 import com.heartsync.core.tools.validators.PasswordValidator
-import com.heartsync.features.authphone.enteremail.domain.EnterEmailRepository
+import com.heartsync.features.signup.domain.AuthRepository
 import com.heartsync.features.welcome.domain.models.AuthScenario
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 
 class EnterEmailViewModel(
     private val appNavigator: AppNavigator,
-    private val enterEmailRepository: EnterEmailRepository,
+    private val authRepository: AuthRepository,
     private val textProvider: TextProvider,
     private val savedStateHandle: SavedStateHandle,
 ) : MviViewModel<EnterEmailState, EnterEmailEffect, EnterEmailAction>(
@@ -84,11 +84,11 @@ class EnterEmailViewModel(
                 setState { copy(loading = true) }
                 when (params.authScenario) {
                     AuthScenario.SIGN_UP -> {
-                        enterEmailRepository.signUpWithPassword(emailFlow.value, passwordFlow.value)
+                        authRepository.singUpByEmailPassword(emailFlow.value, passwordFlow.value)
                     }
 
                     AuthScenario.SIGN_IN -> {
-                        enterEmailRepository.signInWithPassword(emailFlow.value, passwordFlow.value)
+                        authRepository.signInByEmailPassword(emailFlow.value, passwordFlow.value)
                     }
 
                     null -> {}

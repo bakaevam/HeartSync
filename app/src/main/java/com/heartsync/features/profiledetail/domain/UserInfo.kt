@@ -6,5 +6,5 @@ data class UserInfo(
     val id: String,
     val name: String,
     val lastname: String,
-    val birthday: LocalDate,
+    val birthday: LocalDate?,
 )
