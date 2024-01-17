@@ -3,6 +3,7 @@ package com.heartsync.core.tools.navigation
 enum class Route(
     val key: String,
 ) {
+    START("start"),
     WELCOME("welcome"),
     SIGN_UP("sign_up/{scenario}"),
     ENTER_PHONE("enter_phone"),

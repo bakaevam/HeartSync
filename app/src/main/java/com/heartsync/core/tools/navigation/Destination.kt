@@ -24,6 +24,8 @@ sealed class Destination(
         operator fun invoke(): String = route
     }
 
+    object StartScreen : NoArgumentsDestination(Route.START.key)
+
     object WelcomeScreen : NoArgumentsDestination(Route.WELCOME.key)
 
     object SignUpScreen : Destination(
