@@ -30,6 +30,7 @@ import com.heartsync.features.main.presentation.viewmodels.MainEffect
 import com.heartsync.features.main.presentation.viewmodels.MainViewModel
 import com.heartsync.features.profiledetail.presentation.ui.ProfileDetailScreen
 import com.heartsync.features.signup.presentation.ui.SignUpScreen
+import com.heartsync.features.startscreen.presentation.ui.StartScreen
 import com.heartsync.features.welcome.presentation.ui.WelcomeScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -74,8 +75,11 @@ fun MainScreen(
             ) {
                 AppNavHost(
                     navController = navController,
-                    startDestination = Destination.WelcomeScreen,
+                    startDestination = Destination.StartScreen,
                 ) {
+                    composable(destination = Destination.StartScreen) {
+                        StartScreen()
+                    }
                     composable(destination = Destination.WelcomeScreen) {
                         viewModel.onAction(MainAction.OnNavigateWelcome)
                         WelcomeScreen()
