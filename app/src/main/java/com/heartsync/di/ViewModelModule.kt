@@ -12,6 +12,7 @@ import com.heartsync.features.authphone.smscode.presentation.viewmodels.SmsCodeV
 import com.heartsync.features.discovery.presentation.viewmodels.DiscoveryViewModel
 import com.heartsync.features.main.presentation.viewmodels.MainViewModel
 import com.heartsync.features.profiledetail.presentation.viewmodels.ProfileDetailViewModel
+import com.heartsync.features.signup.domain.AuthRepository
 import com.heartsync.features.signup.presentation.viewmodels.SignUpViewModel
 import com.heartsync.features.welcome.domain.repositories.WelcomeRepository
 import com.heartsync.features.welcome.presentation.viewmodels.WelcomeViewModel
@@ -35,9 +36,9 @@ val viewModelModule = module {
     viewModel { (arguments: SavedStateHandle) ->
         SignUpViewModel(
             appNavigator = get<AppNavigator>(),
-            firebaseAuthProvider = get<FirebaseAuthProvider>(),
             savedStateHandle = arguments,
             textProvider = get<TextProvider>(),
+            authRepository = get<AuthRepository>(),
         )
     }
     viewModel {
@@ -49,14 +50,15 @@ val viewModelModule = module {
         SmsCodeViewModel(
             smsCodeRepository = get<SmsCodeRepository>(),
             savedStateHandle = arguments,
+            authRepository = get<AuthRepository>(),
         )
     }
     viewModel { (arguments: SavedStateHandle) ->
         EnterEmailViewModel(
             appNavigator = get<AppNavigator>(),
-            enterEmailRepository = get<EnterEmailRepository>(),
             textProvider = get<TextProvider>(),
             savedStateHandle = arguments,
+            authRepository = get<AuthRepository>(),
         )
     }
     viewModel {

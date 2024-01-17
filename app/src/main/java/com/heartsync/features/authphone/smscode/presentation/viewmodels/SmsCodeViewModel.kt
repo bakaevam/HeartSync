@@ -10,11 +10,13 @@ import com.heartsync.core.tools.LONG_ZERO
 import com.heartsync.core.tools.format.PhoneFormatter
 import com.heartsync.core.tools.navigation.Destination
 import com.heartsync.features.authphone.smscode.domain.SmsCodeRepository
+import com.heartsync.features.signup.domain.AuthRepository
 import kotlinx.coroutines.launch
 
 class SmsCodeViewModel(
     private val smsCodeRepository: SmsCodeRepository,
     private val savedStateHandle: SavedStateHandle,
+    private val authRepository: AuthRepository,
 ) : MviViewModel<SmsCodeState, SmsCodeEffect, SmsCodeAction>(
     SmsCodeState(
         maxLength = SMS_CODE_LENGTH,
@@ -94,7 +96,7 @@ class SmsCodeViewModel(
             try {
                 setState { copy(loading = true) }
                 val code = smsCodeList.joinToString(separator = EMPTY_STRING)
-                smsCodeRepository.checkSmsCode(code)
+                authRepository.signUpByPhone(code)
             } catch (e: Throwable) {
                 Log.e(TAG, "Failed to verify sms code", e)
             } finally {

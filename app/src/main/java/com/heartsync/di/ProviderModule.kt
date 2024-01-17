@@ -1,5 +1,6 @@
 package com.heartsync.di
 
+import com.heartsync.core.network.db.FirebaseDatabase
 import com.heartsync.core.providers.ContextProvider
 import com.heartsync.core.providers.TextProvider
 import com.heartsync.core.providers.auth.FirebaseAuthProvider
@@ -19,5 +20,8 @@ val providerModule = module {
     }
     single<FirebaseAuthProvider> {
         FirebaseAuthProvider()
+    }
+    single<FirebaseDatabase> {
+        FirebaseDatabase()
     }
 }
