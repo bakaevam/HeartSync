@@ -93,6 +93,7 @@ fun MainScreen(
                         SmsCodeScreen()
                     }
                     composable(destination = Destination.ProfileDetailScreen) {
+                        viewModel.onAction(MainAction.OnNavigateProfileDetail)
                         ProfileDetailScreen()
                     }
                     composable(destination = Destination.DiscoveryScreen) {

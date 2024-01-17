@@ -11,6 +11,7 @@ import com.heartsync.core.tools.navigation.Route
 import com.heartsync.features.authphone.enteremail.domain.EnterEmailRepository
 import com.heartsync.features.main.presentation.models.UiBottomItem
 import com.heartsync.features.main.presentation.models.UiNavItem
+import com.heartsync.features.signup.domain.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -18,7 +19,7 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(
     appNavigator: AppNavigator,
-    firebaseAuthProvider: FirebaseAuthProvider,
+    authRepository: AuthRepository,
     private val enterEmailRepository: EnterEmailRepository,
 ) : MviViewModel<MainState, MainEffect, MainAction>(
     MainState(
@@ -47,7 +48,7 @@ class MainViewModel(
     private val currentNavItemFlow = MutableStateFlow<UiBottomItem?>(null)
 
     init {
-        firebaseAuthProvider.isAuthentication()
+        authRepository.isAuthentication()
             .onEach { authentication ->
                 if (authentication) {
                     appNavigator.tryNavigateTo(
@@ -68,6 +69,17 @@ class MainViewModel(
             }
             .launchIn(viewModelScope)
 
+        authRepository.observeNewUser()
+            .onEach { newUser ->
+                if (newUser != null) {
+                    appNavigator.tryNavigateTo(
+                        route = Route.PROFILE_DETAIL.key,
+                    )
+                    authRepository.resetNewUser()
+                }
+            }
+            .launchIn(viewModelScope)
+
         currentNavItemFlow
             .onEach { tab ->
                 setState { copy(currentNavItem = tab) }
@@ -80,6 +92,7 @@ class MainViewModel(
         is MainAction.OnNavigateDiscovery -> changeBottomNavBarVisibility(true)
         is MainAction.OnNavigateWelcome -> changeBottomNavBarVisibility(false)
         is MainAction.OnHandleDeeplink -> handleDeeplink(action)
+        is MainAction.OnNavigateProfileDetail -> changeBottomNavBarVisibility(false)
     }
 
     private fun onNavItemClick(action: MainAction.OnNavItemClick) {

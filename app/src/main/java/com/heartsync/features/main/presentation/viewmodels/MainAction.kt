@@ -8,6 +8,8 @@ sealed interface MainAction : Action {
 
     object OnNavigateWelcome : MainAction
 
+    object OnNavigateProfileDetail : MainAction
+
     object OnNavigateDiscovery : MainAction
 
     class OnHandleDeeplink(

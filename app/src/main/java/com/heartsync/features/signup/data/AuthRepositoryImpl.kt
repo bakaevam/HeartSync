@@ -7,11 +7,17 @@ import com.heartsync.core.providers.auth.FirebaseAuthProvider
 import com.heartsync.core.tools.EMPTY_STRING
 import com.heartsync.features.profiledetail.domain.UserInfo
 import com.heartsync.features.signup.domain.AuthRepository
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.withContext
 
 class AuthRepositoryImpl(
     private val firebaseAuthProvider: FirebaseAuthProvider,
     private val firebaseDatabase: FirebaseDatabase,
 ) : AuthRepository {
+
+    private val newUserFlow = MutableStateFlow<String?>(null)
 
     override suspend fun singUpByEmailPassword(email: String, password: String) {
         val authResult = firebaseAuthProvider.signUpWithPassword(email, password)
@@ -46,12 +52,25 @@ class AuthRepositoryImpl(
     override fun getSignUpRequest(): BeginSignInRequest =
         firebaseAuthProvider.getSignUpRequest()
 
+    override fun observeNewUser(): Flow<String?> =
+        newUserFlow
+
+    override fun resetNewUser() {
+        newUserFlow.value = null
+    }
+
+    override fun isAuthentication(): Flow<Boolean> =
+        firebaseAuthProvider.isAuthentication()
+
     private suspend fun addUserToDb(userUid: String?) {
-        if (userUid != null) {
-            firebaseDatabase.createUserInfo(
-                userUid = userUid,
-                dbUserInfo = UserMapper.toDbUserInfo(createUser(userUid)),
-            )
+        withContext(NonCancellable) {
+            if (userUid != null) {
+                firebaseDatabase.createUserInfo(
+                    userUid = userUid,
+                    dbUserInfo = UserMapper.toDbUserInfo(createUser(userUid)),
+                )
+                newUserFlow.value = userUid
+            }
         }
     }
 
