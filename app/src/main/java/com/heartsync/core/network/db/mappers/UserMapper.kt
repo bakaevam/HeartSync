@@ -3,6 +3,7 @@ package com.heartsync.core.network.db.mappers
 import com.heartsync.core.network.db.model.DbUserInfo
 import com.heartsync.core.tools.format.DateMapper
 import com.heartsync.features.profiledetail.domain.UserInfo
+import java.time.LocalDate
 
 object UserMapper {
 
@@ -14,5 +15,22 @@ object UserMapper {
             birthday = DateMapper.formatDayMonthYear(userInfo.birthday),
             profession = null,
             about = null
+        )
+
+    fun createDbUser(
+        imageUrl: String? = null,
+        name: String? = null,
+        lastName: String? = null,
+        birthday: LocalDate? = null,
+        profession: String? = null,
+        about: String? = null,
+    ): DbUserInfo =
+        DbUserInfo(
+            imageUrl = imageUrl,
+            name = name,
+            lastName = lastName,
+            birthday = DateMapper.formatDayMonthYear(birthday),
+            profession = profession,
+            about = about,
         )
 }

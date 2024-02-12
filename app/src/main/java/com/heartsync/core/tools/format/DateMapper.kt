@@ -1,6 +1,10 @@
 package com.heartsync.core.tools.format
 
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.concurrent.TimeUnit
 
@@ -17,4 +21,18 @@ object DateMapper {
 
     fun formatDayMonthYear(date: LocalDate?): String? =
         date?.format(dateFormatDayMonthYear)
+
+    fun toMillis(date: LocalDate): Long {
+        val localDateTime = LocalDateTime.of(date, LocalTime.MIN)
+        return toMillis(localDateTime)
+    }
+
+    fun toMillis(
+        date: LocalDateTime,
+        zoneId: ZoneId = ZoneId.systemDefault(),
+    ): Long {
+        val zonedDateTime = ZonedDateTime.of(date, zoneId)
+        val instant = zonedDateTime.toInstant()
+        return instant.toEpochMilli()
+    }
 }

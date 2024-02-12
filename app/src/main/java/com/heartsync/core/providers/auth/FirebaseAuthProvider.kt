@@ -137,6 +137,9 @@ class FirebaseAuthProvider {
     ): AuthResult =
         firebaseAuth.signInWithEmailAndPassword(email, password).await()
 
+    fun getUserUid(): String? =
+        firebaseAuth.currentUser?.uid
+
     private fun signInWithCredential(credential: AuthCredential) =
         firebaseAuth.signInWithCredential(credential)
 
