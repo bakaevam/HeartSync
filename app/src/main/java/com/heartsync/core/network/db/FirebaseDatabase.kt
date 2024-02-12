@@ -20,6 +20,16 @@ class FirebaseDatabase {
             .await()
     }
 
+    suspend fun updateUserInfo(
+        dbUserInfo: DbUserInfo,
+        userUid: String,
+    ) {
+        database
+            .getReference(REFERENCE_USER_INFO)
+            .updateChildren(mapOf(userUid to dbUserInfo))
+            .await()
+    }
+
     private companion object {
 
         private const val REFERENCE_USER_INFO = "user_info"

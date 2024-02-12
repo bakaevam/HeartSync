@@ -19,4 +19,10 @@ sealed interface ProfileDetailAction : Action {
     class OnLastnameChange(
         val lastname: String,
     ) : ProfileDetailAction
+
+    class OnBirthdayConfirm(
+        val year: Int,
+        val month: Int,
+        val day: Int,
+    ) : ProfileDetailAction
 }

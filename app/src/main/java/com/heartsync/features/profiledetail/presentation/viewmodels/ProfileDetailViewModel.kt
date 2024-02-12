@@ -4,8 +4,12 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.heartsync.core.base.MviViewModel
 import com.heartsync.core.tools.EMPTY_STRING
+import com.heartsync.core.tools.INT_ONE
+import com.heartsync.core.tools.format.DateFormatter
+import com.heartsync.core.tools.format.DateMapper
 import com.heartsync.core.tools.navigation.AppNavigator
 import com.heartsync.core.tools.navigation.Destination
+import com.heartsync.features.profiledetail.domain.repository.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -14,6 +18,7 @@ import java.time.LocalDate
 
 class ProfileDetailViewModel(
     private val appNavigator: AppNavigator,
+    private val userRepository: UserRepository,
 ) : MviViewModel<ProfileDetailState, ProfileDetailEffect, ProfileDetailAction>(
     ProfileDetailState()
 ) {
@@ -41,7 +46,8 @@ class ProfileDetailViewModel(
         is ProfileDetailAction.OnSaveClick -> onSaveClick()
         is ProfileDetailAction.OnSkipClick -> onSkipClick()
         is ProfileDetailAction.OnEditAvatarClick -> {}
-        is ProfileDetailAction.OnBirthdayClick -> {}
+        is ProfileDetailAction.OnBirthdayClick -> onBirthdayClick()
+        is ProfileDetailAction.OnBirthdayConfirm -> onBirthdayConfirm(action)
     }
 
     private fun onNameChange(action: ProfileDetailAction.OnNameChange) {
@@ -59,20 +65,44 @@ class ProfileDetailViewModel(
     private fun onSaveClick() {
         viewModelScope.launch {
             try {
-
+                setState { copy(loading = true) }
+                userRepository.updateCurrentUser(
+                    name = nameFlow.value.takeIf { it.isNotEmpty() },
+                    lastname = lastnameFlow.value.takeIf { it.isNotEmpty() },
+                    birthday = birthdayFlow.value,
+                )
+                appNavigator.tryNavigateTo(Destination.DiscoveryScreen.fullRoute)
             } catch (e: Throwable) {
                 Log.e(TAG, "Failed to save profile detail info", e)
                 postEffect(ProfileDetailEffect.ShowError())
+            } finally {
+                setState { copy(loading = false) }
             }
         }
     }
 
-    class Params(
-        val name: String?,
-        val lastName: String?,
-    )
+    private fun onBirthdayClick() {
+        val date = birthdayFlow.value
+        val today = LocalDate.now()
+        postEffect(
+            ProfileDetailEffect.ShowBirthdayPicker(
+                year = date?.year ?: today.year,
+                month = (date?.month?.value ?: today.month.value) - INT_ONE,
+                day = date?.dayOfMonth ?: today.dayOfMonth,
+                maxDay = DateMapper.toMillis(today.minusYears(AGE_OF_MAJORITY)),
+            )
+        )
+    }
+
+    private fun onBirthdayConfirm(action: ProfileDetailAction.OnBirthdayConfirm) {
+        val birthday = LocalDate.of(action.year, action.month + INT_ONE, action.day)
+        birthdayFlow.value = birthday
+        setState { copy(birthday = DateFormatter.formatDateString(birthday)) }
+    }
 
     private companion object {
         private const val TAG = "Profile Detail View Model"
+
+        private const val AGE_OF_MAJORITY = 18L
     }
 }

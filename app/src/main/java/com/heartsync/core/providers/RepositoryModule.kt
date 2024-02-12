@@ -8,6 +8,8 @@ import com.heartsync.features.authphone.enteremail.data.EnterEmailRepositoryImpl
 import com.heartsync.features.authphone.enteremail.domain.EnterEmailRepository
 import com.heartsync.features.authphone.smscode.data.SmsCodeRepositoryImpl
 import com.heartsync.features.authphone.smscode.domain.SmsCodeRepository
+import com.heartsync.features.profiledetail.data.repository.UserRepositoryImpl
+import com.heartsync.features.profiledetail.domain.repository.UserRepository
 import com.heartsync.features.signup.data.AuthRepositoryImpl
 import com.heartsync.features.signup.domain.AuthRepository
 import com.heartsync.features.welcome.data.repositories.WelcomeRepositoryImpl
@@ -39,6 +41,12 @@ val repositoryModule = module {
         AuthRepositoryImpl(
             firebaseAuthProvider = get<FirebaseAuthProvider>(),
             firebaseDatabase = get<FirebaseDatabase>(),
+        )
+    }
+    single<UserRepository> {
+        UserRepositoryImpl(
+            firebaseAuthProvider = get<FirebaseAuthProvider>(),
+            database = get<FirebaseDatabase>(),
         )
     }
 }
