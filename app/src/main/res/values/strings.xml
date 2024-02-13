@@ -71,5 +71,6 @@
     <string name="messages_title">Сообщения</string>
 
     <!--Cabinet-->
+    <string name="cabinet_profile_title">Данные профиля</string>
     <string name="cabinet_sign_out">Выйти из аккаунта</string>
 </resources>
