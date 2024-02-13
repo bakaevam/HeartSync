@@ -21,7 +21,7 @@ fun MessagesScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 40.dp, vertical = 24.dp)
+            .padding(horizontal = 40.dp, vertical = 24.dp),
     ) {
         AppText(
             modifier = Modifier.padding(end = 20.dp),
