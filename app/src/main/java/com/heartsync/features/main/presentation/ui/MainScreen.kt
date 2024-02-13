@@ -29,6 +29,7 @@ import com.heartsync.features.main.presentation.viewmodels.MainAction
 import com.heartsync.features.main.presentation.viewmodels.MainEffect
 import com.heartsync.features.main.presentation.viewmodels.MainViewModel
 import com.heartsync.features.matches.presentation.ui.MatchesScreen
+import com.heartsync.features.messages.presentation.ui.MessagesScreen
 import com.heartsync.features.profiledetail.presentation.ui.ProfileDetailScreen
 import com.heartsync.features.signup.presentation.ui.SignUpScreen
 import com.heartsync.features.startscreen.presentation.ui.StartScreen
@@ -107,6 +108,9 @@ fun MainScreen(
                     }
                     composable(destination = Destination.MatchesScreen) {
                         MatchesScreen()
+                    }
+                    composable(destination = Destination.MessagesScreen) {
+                        MessagesScreen()
                     }
                 }
             }

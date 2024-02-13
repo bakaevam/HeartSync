@@ -87,6 +87,7 @@ class MainViewModel(
                 when (tab) {
                     UiBottomItem.DISCOVERY -> appNavigator.tryNavigateTo(Destination.DiscoveryScreen.fullRoute)
                     UiBottomItem.MATCHERS -> appNavigator.tryNavigateTo(Destination.MatchesScreen.fullRoute)
+                    UiBottomItem.MESSAGES -> appNavigator.tryNavigateTo(Destination.MessagesScreen.fullRoute)
                     else -> {}
                 }
             }
