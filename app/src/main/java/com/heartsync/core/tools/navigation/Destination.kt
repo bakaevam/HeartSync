@@ -67,6 +67,8 @@ sealed class Destination(
 
     object MatchesScreen : NoArgumentsDestination(Route.MATCHES.key)
 
+    object MessagesScreen : NoArgumentsDestination(Route.MESSAGES.key)
+
     object SmsCodeScreen : Destination(Route.SMS_CODE.key, params = arrayOf("phone")) {
         const val KEY_PHONE = "phone"
 

@@ -65,5 +65,8 @@
     <string name="profile_detail_birthday_placeholder">Выберите дату рождения</string>
 
     <!--Discovery-->
-    <string name="discovery_title">Сердца</string>
+    <string name="discovery_title">Поиск пары</string>
+
+    <!--Messages-->
+    <string name="messages_title">Сообщения</string>
 </resources>

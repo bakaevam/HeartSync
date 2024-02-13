@@ -11,6 +11,7 @@ import com.heartsync.features.authphone.smscode.presentation.viewmodels.SmsCodeV
 import com.heartsync.features.discovery.presentation.viewmodels.DiscoveryViewModel
 import com.heartsync.features.main.presentation.viewmodels.MainViewModel
 import com.heartsync.features.matches.presentation.viewmodels.MatchesViewModel
+import com.heartsync.features.messages.presentation.viewmodels.MessagesViewModel
 import com.heartsync.features.profiledetail.domain.repository.UserRepository
 import com.heartsync.features.profiledetail.presentation.viewmodels.ProfileDetailViewModel
 import com.heartsync.features.signup.domain.AuthRepository
@@ -73,5 +74,8 @@ val viewModelModule = module {
     }
     viewModel {
         MatchesViewModel()
+    }
+    viewModel {
+        MessagesViewModel()
     }
 }

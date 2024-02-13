@@ -12,4 +12,5 @@ enum class Route(
     PROFILE_DETAIL("profile_detail"),
     DISCOVERY("discovery"),
     MATCHES("matches"),
+    MESSAGES("messages"),
 }
