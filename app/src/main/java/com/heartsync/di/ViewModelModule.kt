@@ -83,6 +83,7 @@ val viewModelModule = module {
     viewModel {
         CabinetViewModel(
             signOutUseCase = get<SignOutUseCase>(),
+            userRepository = get<UserRepository>(),
         )
     }
 }

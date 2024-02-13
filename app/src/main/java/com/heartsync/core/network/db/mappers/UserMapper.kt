@@ -1,7 +1,10 @@
 package com.heartsync.core.network.db.mappers
 
 import com.heartsync.core.network.db.model.DbUserInfo
+import com.heartsync.core.tools.EMPTY_STRING
+import com.heartsync.core.tools.format.DateFormatter
 import com.heartsync.core.tools.format.DateMapper
+import com.heartsync.features.cabinet.domain.model.ProfileData
 import com.heartsync.features.profiledetail.domain.UserInfo
 import java.time.LocalDate
 
@@ -32,5 +35,12 @@ object UserMapper {
             birthday = DateMapper.formatDayMonthYear(birthday),
             profession = profession,
             about = about,
+        )
+
+    fun toProfileData(dbUserInfo: DbUserInfo): ProfileData =
+        ProfileData(
+            name = dbUserInfo.name ?: EMPTY_STRING,
+            lastname = dbUserInfo.lastName ?: EMPTY_STRING,
+            birthday = dbUserInfo.birthday?.let(DateFormatter::toLocalDate),
         )
 }

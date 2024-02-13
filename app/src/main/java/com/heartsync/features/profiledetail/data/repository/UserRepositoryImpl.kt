@@ -3,7 +3,10 @@ package com.heartsync.features.profiledetail.data.repository
 import com.heartsync.core.network.db.FirebaseDatabase
 import com.heartsync.core.network.db.mappers.UserMapper
 import com.heartsync.core.providers.auth.FirebaseAuthProvider
+import com.heartsync.features.cabinet.domain.model.ProfileData
 import com.heartsync.features.profiledetail.domain.repository.UserRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.time.LocalDate
 
 class UserRepositoryImpl(
@@ -24,8 +27,18 @@ class UserRepositoryImpl(
                     name = name,
                     lastName = lastname,
                     birthday = birthday,
-                )
+                ),
             )
         }
     }
+
+    override suspend fun getProfileData(): ProfileData? =
+        withContext(Dispatchers.Default) {
+            val userUid = firebaseAuthProvider.getUserUid()
+            userUid?.let {
+                database
+                    .getUserInfo(userUid)
+                    ?.let(UserMapper::toProfileData)
+            }
+        }
 }
