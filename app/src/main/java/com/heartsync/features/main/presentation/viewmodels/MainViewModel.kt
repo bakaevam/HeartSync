@@ -7,6 +7,7 @@ import com.heartsync.core.base.MviViewModel
 import com.heartsync.core.providers.auth.FirebaseAuthProvider
 import com.heartsync.core.providers.auth.FirebaseAuthProvider.Companion.KEY_EMAIL
 import com.heartsync.core.tools.navigation.AppNavigator
+import com.heartsync.core.tools.navigation.Destination
 import com.heartsync.core.tools.navigation.Route
 import com.heartsync.features.authphone.enteremail.domain.EnterEmailRepository
 import com.heartsync.features.main.presentation.models.UiBottomItem
@@ -45,7 +46,7 @@ class MainViewModel(
 ) {
 
     val navigationChannel = appNavigator.navigationChannel
-    private val currentNavItemFlow = MutableStateFlow<UiBottomItem?>(null)
+    private val currentNavItemFlow = MutableStateFlow<UiBottomItem?>(UiBottomItem.DISCOVERY)
 
     init {
         authRepository.isAuthentication()
@@ -83,6 +84,11 @@ class MainViewModel(
         currentNavItemFlow
             .onEach { tab ->
                 setState { copy(currentNavItem = tab) }
+                when (tab) {
+                    UiBottomItem.DISCOVERY -> appNavigator.tryNavigateTo(Destination.DiscoveryScreen.fullRoute)
+                    UiBottomItem.MATCHERS -> appNavigator.tryNavigateTo(Destination.MatchesScreen.fullRoute)
+                    else -> {}
+                }
             }
             .launchIn(viewModelScope)
     }
@@ -101,11 +107,6 @@ class MainViewModel(
 
     private fun changeBottomNavBarVisibility(visible: Boolean) {
         setState { copy(bottomBarVisible = visible) }
-        if (visible) {
-            currentNavItemFlow.value = UiBottomItem.DISCOVERY
-        } else {
-            currentNavItemFlow.value = null
-        }
     }
 
     private fun handleDeeplink(action: MainAction.OnHandleDeeplink) {
