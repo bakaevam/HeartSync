@@ -4,5 +4,5 @@ enum class UiBottomItem {
     DISCOVERY,
     MATCHERS,
     MESSAGES,
-    MENU,
+    CABINET,
 }

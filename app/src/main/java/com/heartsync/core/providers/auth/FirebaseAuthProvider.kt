@@ -140,6 +140,10 @@ class FirebaseAuthProvider {
     fun getUserUid(): String? =
         firebaseAuth.currentUser?.uid
 
+    fun signOut() {
+        firebaseAuth.signOut()
+    }
+
     private fun signInWithCredential(credential: AuthCredential) =
         firebaseAuth.signInWithCredential(credential)
 

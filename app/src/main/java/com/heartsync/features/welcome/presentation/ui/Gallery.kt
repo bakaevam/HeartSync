@@ -12,6 +12,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,12 +22,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.HorizontalPagerIndicator
+import com.heartsync.core.tools.INT_ONE
 import com.heartsync.core.ui.appcomponents.AppText
 import com.heartsync.core.ui.appcomponents.LoadableImage
 import com.heartsync.core.ui.theme.HeartSyncTheme
 import com.heartsync.core.ui.theme.MediumCornerShape
 import com.heartsync.core.ui.tools.AppPreview
 import com.heartsync.features.welcome.presentation.models.UiWelcomePage
+import kotlinx.coroutines.delay
 import kotlin.math.absoluteValue
 
 @AppPreview
@@ -56,6 +59,8 @@ private fun Preview() {
     }
 }
 
+private const val PAGER_SCROLL_DELAY = 2000L
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Gallery(
@@ -67,6 +72,14 @@ fun Gallery(
         pageCount = { Int.MAX_VALUE },
         initialPage = Int.MAX_VALUE / 2,
     )
+    LaunchedEffect(Unit) {
+        while (pagerState.canScrollForward) {
+            delay(PAGER_SCROLL_DELAY)
+            pagerState.animateScrollToPage(
+                page = pagerState.currentPage + INT_ONE,
+            )
+        }
+    }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {

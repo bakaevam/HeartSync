@@ -9,6 +9,7 @@ import com.heartsync.core.tools.format.DateFormatter
 import com.heartsync.core.tools.format.DateMapper
 import com.heartsync.core.tools.navigation.AppNavigator
 import com.heartsync.core.tools.navigation.Destination
+import com.heartsync.core.tools.navigation.Route
 import com.heartsync.features.profiledetail.domain.repository.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -59,7 +60,12 @@ class ProfileDetailViewModel(
     }
 
     private fun onSkipClick() {
-        appNavigator.tryNavigateTo(Destination.DiscoveryScreen.fullRoute)
+        appNavigator.tryNavigateTo(
+            route = Route.DISCOVERY.key,
+            inclusive = true,
+            isSingleTop = true,
+            popBackStack = true,
+        )
     }
 
     private fun onSaveClick() {

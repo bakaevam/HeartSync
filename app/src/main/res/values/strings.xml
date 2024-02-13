@@ -69,4 +69,7 @@
 
     <!--Messages-->
     <string name="messages_title">Сообщения</string>
+
+    <!--Cabinet-->
+    <string name="cabinet_sign_out">Выйти из аккаунта</string>
 </resources>

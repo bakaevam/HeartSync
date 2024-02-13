@@ -8,6 +8,8 @@ import com.heartsync.features.authphone.enteremail.domain.EnterEmailRepository
 import com.heartsync.features.authphone.enteremail.presentation.viewmodels.EnterEmailViewModel
 import com.heartsync.features.authphone.smscode.domain.SmsCodeRepository
 import com.heartsync.features.authphone.smscode.presentation.viewmodels.SmsCodeViewModel
+import com.heartsync.features.cabinet.domain.usecase.SignOutUseCase
+import com.heartsync.features.cabinet.presentation.viewmodels.CabinetViewModel
 import com.heartsync.features.discovery.presentation.viewmodels.DiscoveryViewModel
 import com.heartsync.features.main.presentation.viewmodels.MainViewModel
 import com.heartsync.features.matches.presentation.viewmodels.MatchesViewModel
@@ -77,5 +79,10 @@ val viewModelModule = module {
     }
     viewModel {
         MessagesViewModel()
+    }
+    viewModel {
+        CabinetViewModel(
+            signOutUseCase = get<SignOutUseCase>(),
+        )
     }
 }

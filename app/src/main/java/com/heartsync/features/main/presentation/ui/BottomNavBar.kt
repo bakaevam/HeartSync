@@ -34,7 +34,7 @@ private fun Preview() {
                     badgeText = null,
                 ),
                 UiNavItem(
-                    bottomItem = UiBottomItem.MENU,
+                    bottomItem = UiBottomItem.CABINET,
                     badgeText = null,
                 ),
             ),
@@ -62,7 +62,7 @@ fun BottomNavBar(
                 UiBottomItem.DISCOVERY -> R.drawable.ic_discovery
                 UiBottomItem.MATCHERS -> R.drawable.ic_matchers
                 UiBottomItem.MESSAGES -> R.drawable.ic_chats
-                UiBottomItem.MENU -> R.drawable.ic_menu
+                UiBottomItem.CABINET -> R.drawable.ic_menu
             }
             val selected = item.bottomItem == currentNavItem
             BottomNavigationItem(

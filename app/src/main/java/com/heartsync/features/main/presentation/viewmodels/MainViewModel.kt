@@ -7,7 +7,6 @@ import com.heartsync.core.base.MviViewModel
 import com.heartsync.core.providers.auth.FirebaseAuthProvider
 import com.heartsync.core.providers.auth.FirebaseAuthProvider.Companion.KEY_EMAIL
 import com.heartsync.core.tools.navigation.AppNavigator
-import com.heartsync.core.tools.navigation.Destination
 import com.heartsync.core.tools.navigation.Route
 import com.heartsync.features.authphone.enteremail.domain.EnterEmailRepository
 import com.heartsync.features.main.presentation.models.UiBottomItem
@@ -38,7 +37,7 @@ class MainViewModel(
                 badgeText = null,
             ),
             UiNavItem(
-                bottomItem = UiBottomItem.MENU,
+                bottomItem = UiBottomItem.CABINET,
                 badgeText = null,
             ),
         ),
@@ -46,24 +45,21 @@ class MainViewModel(
 ) {
 
     val navigationChannel = appNavigator.navigationChannel
-    private val currentNavItemFlow = MutableStateFlow<UiBottomItem?>(UiBottomItem.DISCOVERY)
+    private val currentNavItemFlow = MutableStateFlow<UiBottomItem?>(null)
 
     init {
         authRepository.isAuthentication()
             .onEach { authentication ->
                 if (authentication) {
-                    appNavigator.tryNavigateTo(
-                        route = Route.DISCOVERY.key,
-                        inclusive = true,
-                        isSingleTop = true,
-                        popBackStack = true,
-                    )
+                    currentNavItemFlow.value = UiBottomItem.DISCOVERY
                 } else {
+                    currentNavItemFlow.value = null
                     appNavigator.tryNavigateTo(
                         route = Route.WELCOME.key,
                         popUpToRoute = null,
                         inclusive = false,
                         isSingleTop = false,
+                        popBackStack = true,
                     )
                 }
                 Log.e("Main View Model", authentication.toString())
@@ -85,9 +81,34 @@ class MainViewModel(
             .onEach { tab ->
                 setState { copy(currentNavItem = tab) }
                 when (tab) {
-                    UiBottomItem.DISCOVERY -> appNavigator.tryNavigateTo(Destination.DiscoveryScreen.fullRoute)
-                    UiBottomItem.MATCHERS -> appNavigator.tryNavigateTo(Destination.MatchesScreen.fullRoute)
-                    UiBottomItem.MESSAGES -> appNavigator.tryNavigateTo(Destination.MessagesScreen.fullRoute)
+                    UiBottomItem.DISCOVERY -> appNavigator.tryNavigateTo(
+                        route = Route.DISCOVERY.key,
+                        inclusive = true,
+                        isSingleTop = true,
+                        popBackStack = true,
+                    )
+
+                    UiBottomItem.MATCHERS -> appNavigator.tryNavigateTo(
+                        route = Route.MATCHES.key,
+                        inclusive = true,
+                        isSingleTop = true,
+                        popBackStack = true,
+                    )
+
+                    UiBottomItem.MESSAGES -> appNavigator.tryNavigateTo(
+                        route = Route.MESSAGES.key,
+                        inclusive = true,
+                        isSingleTop = true,
+                        popBackStack = true,
+                    )
+
+                    UiBottomItem.CABINET -> appNavigator.tryNavigateTo(
+                        route = Route.CABINET.key,
+                        inclusive = true,
+                        isSingleTop = true,
+                        popBackStack = true,
+                    )
+
                     else -> {}
                 }
             }

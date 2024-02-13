@@ -13,4 +13,5 @@ enum class Route(
     DISCOVERY("discovery"),
     MATCHES("matches"),
     MESSAGES("messages"),
+    CABINET("cabinet"),
 }
