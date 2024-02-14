@@ -1,8 +1,8 @@
 package com.heartsync.features.welcome.data.repositories
 
 import com.heartsync.R
-import com.heartsync.core.network.store.FirebaseStore
-import com.heartsync.core.providers.TextProvider
+import com.heartsync.features.main.data.providers.TextProvider
+import com.heartsync.features.main.domain.store.FirebaseStore
 import com.heartsync.features.welcome.data.models.DbPhoto
 import com.heartsync.features.welcome.domain.models.WelcomePage
 import com.heartsync.features.welcome.domain.repositories.WelcomeRepository

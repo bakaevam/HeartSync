@@ -1,4 +1,4 @@
-package com.heartsync.core.providers.auth
+package com.heartsync.features.main.data.providers.auth
 
 import android.app.Activity
 import android.util.Log

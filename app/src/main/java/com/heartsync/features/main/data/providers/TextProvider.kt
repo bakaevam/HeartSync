@@ -1,4 +1,4 @@
-package com.heartsync.core.providers
+package com.heartsync.features.main.data.providers
 
 import android.content.res.Resources
 

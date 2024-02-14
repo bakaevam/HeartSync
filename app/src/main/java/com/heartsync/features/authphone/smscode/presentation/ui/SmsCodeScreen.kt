@@ -7,11 +7,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import com.heartsync.core.providers.auth.FirebaseAuthProvider
 import com.heartsync.core.tools.extention.CollectEffect
 import com.heartsync.core.ui.loader.BlockingLoader
 import com.heartsync.features.authphone.smscode.presentation.viewmodels.SmsCodeEffect
 import com.heartsync.features.authphone.smscode.presentation.viewmodels.SmsCodeViewModel
+import com.heartsync.features.main.data.providers.auth.FirebaseAuthProvider
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.koinViewModel
 

@@ -1,9 +1,9 @@
 package com.heartsync.features.profiledetail.data.repository
 
-import com.heartsync.core.network.db.FirebaseDatabase
-import com.heartsync.core.network.db.mappers.UserMapper
-import com.heartsync.core.providers.auth.FirebaseAuthProvider
 import com.heartsync.features.cabinet.domain.model.ProfileData
+import com.heartsync.features.main.data.mappers.UserMapper
+import com.heartsync.features.main.data.providers.auth.FirebaseAuthProvider
+import com.heartsync.features.main.data.store.FirebaseDatabase
 import com.heartsync.features.profiledetail.domain.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

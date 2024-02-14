@@ -4,11 +4,11 @@ import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.heartsync.core.base.MviViewModel
-import com.heartsync.core.providers.auth.FirebaseAuthProvider
-import com.heartsync.core.providers.auth.FirebaseAuthProvider.Companion.KEY_EMAIL
 import com.heartsync.core.tools.navigation.AppNavigator
 import com.heartsync.core.tools.navigation.Route
 import com.heartsync.features.authphone.enteremail.domain.EnterEmailRepository
+import com.heartsync.features.main.data.providers.auth.FirebaseAuthProvider
+import com.heartsync.features.main.data.providers.auth.FirebaseAuthProvider.Companion.KEY_EMAIL
 import com.heartsync.features.main.presentation.models.UiBottomItem
 import com.heartsync.features.main.presentation.models.UiNavItem
 import com.heartsync.features.signup.domain.AuthRepository

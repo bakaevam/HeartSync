@@ -1,10 +1,10 @@
-package com.heartsync.core.network.db.mappers
+package com.heartsync.features.main.data.mappers
 
-import com.heartsync.core.network.db.model.DbUserInfo
 import com.heartsync.core.tools.EMPTY_STRING
 import com.heartsync.core.tools.format.DateFormatter
 import com.heartsync.core.tools.format.DateMapper
 import com.heartsync.features.cabinet.domain.model.ProfileData
+import com.heartsync.features.main.data.models.db.DbUserInfo
 import com.heartsync.features.profiledetail.domain.UserInfo
 import java.time.LocalDate
 

@@ -1,9 +1,9 @@
 package com.heartsync.di
 
-import com.heartsync.core.network.db.FirebaseDatabase
-import com.heartsync.core.providers.ContextProvider
-import com.heartsync.core.providers.TextProvider
-import com.heartsync.core.providers.auth.FirebaseAuthProvider
+import com.heartsync.features.main.data.providers.ContextProvider
+import com.heartsync.features.main.data.providers.TextProvider
+import com.heartsync.features.main.data.providers.auth.FirebaseAuthProvider
+import com.heartsync.features.main.data.store.FirebaseDatabase
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 

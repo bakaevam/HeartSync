@@ -3,11 +3,11 @@ package com.heartsync
 import android.app.ActivityManager
 import android.app.Application
 import android.webkit.WebView
-import com.heartsync.core.providers.repositoryModule
 import com.heartsync.di.navigationModule
 import com.heartsync.di.providerModule
 import com.heartsync.di.useCaseModule
 import com.heartsync.di.viewModelModule
+import com.heartsync.features.main.data.providers.repositoryModule
 import org.koin.android.BuildConfig
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -29,12 +29,6 @@ class HeartSyncApplication : Application() {
                 )
             }
             WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
-            // TODO add Logger
-//            Logger.initialize(
-//                localEnabled = BuildConfig.LOGGING_ENABLED,
-//                remoteEnabled = !BuildConfig.DEBUG,
-//                application = this,
-//            )
         }
     }
 
