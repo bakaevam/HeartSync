@@ -1,8 +1,8 @@
 package com.heartsync.features.authphone.enteremail.data
 
 import com.google.firebase.auth.AuthResult
-import com.heartsync.core.providers.auth.FirebaseAuthProvider
 import com.heartsync.features.authphone.enteremail.domain.EnterEmailRepository
+import com.heartsync.features.main.data.providers.auth.FirebaseAuthProvider
 
 class EnterEmailRepositoryImpl(
     private val firebaseAuthProvider: FirebaseAuthProvider,

@@ -1,7 +1,6 @@
 package com.heartsync.di
 
 import androidx.lifecycle.SavedStateHandle
-import com.heartsync.core.providers.TextProvider
 import com.heartsync.core.tools.navigation.AppNavigator
 import com.heartsync.features.authphone.editnumber.presentation.viewmodels.EnterPhoneViewModel
 import com.heartsync.features.authphone.enteremail.domain.EnterEmailRepository
@@ -11,6 +10,7 @@ import com.heartsync.features.authphone.smscode.presentation.viewmodels.SmsCodeV
 import com.heartsync.features.cabinet.domain.usecase.SignOutUseCase
 import com.heartsync.features.cabinet.presentation.viewmodels.CabinetViewModel
 import com.heartsync.features.discovery.presentation.viewmodels.DiscoveryViewModel
+import com.heartsync.features.main.data.providers.TextProvider
 import com.heartsync.features.main.presentation.viewmodels.MainViewModel
 import com.heartsync.features.matches.presentation.viewmodels.MatchesViewModel
 import com.heartsync.features.messages.presentation.viewmodels.MessagesViewModel

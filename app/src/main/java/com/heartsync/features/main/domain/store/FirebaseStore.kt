@@ -1,4 +1,4 @@
-package com.heartsync.core.network.store
+package com.heartsync.features.main.domain.store
 
 import com.heartsync.features.welcome.data.models.DbPhoto
 

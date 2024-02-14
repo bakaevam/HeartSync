@@ -7,11 +7,11 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.heartsync.R
 import com.heartsync.core.base.MviViewModel
-import com.heartsync.core.providers.TextProvider
 import com.heartsync.core.tools.EMPTY_STRING
 import com.heartsync.core.tools.navigation.AppNavigator
 import com.heartsync.core.tools.navigation.Destination
 import com.heartsync.core.tools.validators.PasswordValidator
+import com.heartsync.features.main.data.providers.TextProvider
 import com.heartsync.features.signup.domain.AuthRepository
 import com.heartsync.features.welcome.domain.models.AuthScenario
 import kotlinx.coroutines.flow.MutableStateFlow

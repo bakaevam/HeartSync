@@ -1,13 +1,13 @@
-package com.heartsync.core.providers
+package com.heartsync.features.main.data.providers
 
-import com.heartsync.core.network.db.FirebaseDatabase
-import com.heartsync.core.network.store.FirebaseStore
-import com.heartsync.core.network.store.FirebaseStoreImpl
-import com.heartsync.core.providers.auth.FirebaseAuthProvider
 import com.heartsync.features.authphone.enteremail.data.EnterEmailRepositoryImpl
 import com.heartsync.features.authphone.enteremail.domain.EnterEmailRepository
 import com.heartsync.features.authphone.smscode.data.SmsCodeRepositoryImpl
 import com.heartsync.features.authphone.smscode.domain.SmsCodeRepository
+import com.heartsync.features.main.data.providers.auth.FirebaseAuthProvider
+import com.heartsync.features.main.data.store.FirebaseDatabase
+import com.heartsync.features.main.data.store.FirebaseStoreImpl
+import com.heartsync.features.main.domain.store.FirebaseStore
 import com.heartsync.features.profiledetail.data.repository.UserRepositoryImpl
 import com.heartsync.features.profiledetail.domain.repository.UserRepository
 import com.heartsync.features.signup.data.AuthRepositoryImpl

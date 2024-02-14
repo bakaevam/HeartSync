@@ -1,10 +1,10 @@
 package com.heartsync.features.signup.data
 
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
-import com.heartsync.core.network.db.FirebaseDatabase
-import com.heartsync.core.network.db.mappers.UserMapper
-import com.heartsync.core.providers.auth.FirebaseAuthProvider
 import com.heartsync.core.tools.EMPTY_STRING
+import com.heartsync.features.main.data.mappers.UserMapper
+import com.heartsync.features.main.data.providers.auth.FirebaseAuthProvider
+import com.heartsync.features.main.data.store.FirebaseDatabase
 import com.heartsync.features.profiledetail.domain.UserInfo
 import com.heartsync.features.signup.domain.AuthRepository
 import kotlinx.coroutines.NonCancellable

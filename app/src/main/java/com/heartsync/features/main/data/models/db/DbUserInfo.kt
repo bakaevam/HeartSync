@@ -1,4 +1,4 @@
-package com.heartsync.core.network.db.model
+package com.heartsync.features.main.data.models.db
 
 /**
  * birthday - Формат даты xx.xx.xxxx

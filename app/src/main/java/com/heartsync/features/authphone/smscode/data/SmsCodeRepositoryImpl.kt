@@ -2,10 +2,10 @@ package com.heartsync.features.authphone.smscode.data
 
 import com.google.firebase.auth.AuthResult
 import com.heartsync.R
-import com.heartsync.core.providers.TextProvider
-import com.heartsync.core.providers.auth.FirebaseAuthProvider
 import com.heartsync.core.tools.format.DateMapper
 import com.heartsync.features.authphone.smscode.domain.SmsCodeRepository
+import com.heartsync.features.main.data.providers.TextProvider
+import com.heartsync.features.main.data.providers.auth.FirebaseAuthProvider
 
 class SmsCodeRepositoryImpl(
     private val textProvider: TextProvider,

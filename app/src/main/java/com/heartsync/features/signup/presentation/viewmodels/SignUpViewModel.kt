@@ -5,10 +5,10 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.heartsync.R
 import com.heartsync.core.base.MviViewModel
-import com.heartsync.core.providers.TextProvider
 import com.heartsync.core.tools.BASE_URL
 import com.heartsync.core.tools.navigation.AppNavigator
 import com.heartsync.core.tools.navigation.Destination
+import com.heartsync.features.main.data.providers.TextProvider
 import com.heartsync.features.signup.domain.AuthRepository
 import com.heartsync.features.signup.presentation.models.SocialSignUp
 import com.heartsync.features.welcome.domain.models.AuthScenario

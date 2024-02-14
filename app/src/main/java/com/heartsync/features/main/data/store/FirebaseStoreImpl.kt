@@ -1,8 +1,9 @@
-package com.heartsync.core.network.store
+package com.heartsync.features.main.data.store
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.heartsync.features.main.domain.store.FirebaseStore
 import com.heartsync.features.welcome.data.models.DbPhoto
 import com.heartsync.features.welcome.data.models.PhotosMapper
 import kotlinx.coroutines.runBlocking

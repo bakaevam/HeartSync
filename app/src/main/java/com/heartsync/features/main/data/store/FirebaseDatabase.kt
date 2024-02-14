@@ -1,8 +1,8 @@
-package com.heartsync.core.network.db
+package com.heartsync.features.main.data.store
 
 import com.google.firebase.Firebase
 import com.google.firebase.database.database
-import com.heartsync.core.network.db.model.DbUserInfo
+import com.heartsync.features.main.data.models.db.DbUserInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
