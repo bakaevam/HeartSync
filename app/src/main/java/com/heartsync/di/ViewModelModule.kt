@@ -9,8 +9,11 @@ import com.heartsync.features.authphone.smscode.domain.SmsCodeRepository
 import com.heartsync.features.authphone.smscode.presentation.viewmodels.SmsCodeViewModel
 import com.heartsync.features.cabinet.domain.usecase.SignOutUseCase
 import com.heartsync.features.cabinet.presentation.viewmodels.CabinetViewModel
+import com.heartsync.features.camera.domain.repositories.CameraRepository
+import com.heartsync.features.camera.presentation.viewmodels.CameraViewModel
 import com.heartsync.features.discovery.presentation.viewmodels.DiscoveryViewModel
 import com.heartsync.features.main.data.providers.TextProvider
+import com.heartsync.features.main.domain.repositories.PermissionRepository
 import com.heartsync.features.main.presentation.viewmodels.MainViewModel
 import com.heartsync.features.matches.presentation.viewmodels.MatchesViewModel
 import com.heartsync.features.messages.presentation.viewmodels.MessagesViewModel
@@ -84,6 +87,15 @@ val viewModelModule = module {
         CabinetViewModel(
             signOutUseCase = get<SignOutUseCase>(),
             userRepository = get<UserRepository>(),
+            appNavigator = get<AppNavigator>(),
+        )
+    }
+    viewModel {
+        CameraViewModel(
+            appNavigator = get<AppNavigator>(),
+            cameraRepository = get<CameraRepository>(),
+            textProvider = get<TextProvider>(),
+            permissionRepository = get<PermissionRepository>(),
         )
     }
 }

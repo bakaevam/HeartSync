@@ -78,6 +78,8 @@ sealed class Destination(
             KEY_PHONE to phone,
         )
     }
+
+    object CameraScreen : NoArgumentsDestination(Route.CAMERA.key)
 }
 
 internal fun String.appendParams(vararg params: Pair<String, Any?>): String {

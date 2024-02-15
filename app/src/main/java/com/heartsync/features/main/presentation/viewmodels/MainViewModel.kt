@@ -121,6 +121,7 @@ class MainViewModel(
         is MainAction.OnNavigateWelcome -> changeBottomNavBarVisibility(false)
         is MainAction.OnHandleDeeplink -> handleDeeplink(action)
         is MainAction.OnNavigateProfileDetail -> changeBottomNavBarVisibility(false)
+        is MainAction.OnPermissionGrant -> {}
     }
 
     private fun onNavItemClick(action: MainAction.OnNavItemClick) {
