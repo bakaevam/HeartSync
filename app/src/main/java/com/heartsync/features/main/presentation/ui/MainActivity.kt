@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
 import com.google.firebase.Firebase
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData
 import com.google.firebase.dynamiclinks.dynamicLinks
@@ -17,12 +15,6 @@ class MainActivity : ComponentActivity() {
 
     private val viewModel by viewModel<MainViewModel>()
 
-    private val permissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions(),
-    ) {
-        viewModel.onAction(MainAction.OnPermissionGrant(it))
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -30,13 +22,6 @@ class MainActivity : ComponentActivity() {
         }
         handleDynamicLinks()
     }
-
-    fun launchPermissions(permissions: Array<String>) {
-        permissionLauncher.launch(permissions)
-    }
-
-    fun shouldShowPermissionRational(permission: String): Boolean =
-        ActivityCompat.shouldShowRequestPermissionRationale(this, permission)
 
     private fun handleDynamicLinks() {
         Firebase.dynamicLinks

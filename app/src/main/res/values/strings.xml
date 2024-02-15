@@ -77,4 +77,7 @@
 
     <!--Camera-->
     <string name="camera_take_picture_success">Снимок сохранён в галерею</string>
+    <string name="camera_permission_title">Необходимо ваше разрешение</string>
+    <string name="camera_permission_message">Для полноценного использования функций приложения необходим доступ к камере вашего устройства. Разрешите доступ, чтобы делать фотографии.</string>
+    <string name="camera_permission_button">Разрешить</string>
 </resources>
