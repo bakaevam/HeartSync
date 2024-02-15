@@ -5,4 +5,6 @@ import com.heartsync.core.base.Action
 sealed interface CabinetAction : Action {
 
     object OnSignOutClick : CabinetAction
+
+    object OnOpenCameraClick : CabinetAction
 }

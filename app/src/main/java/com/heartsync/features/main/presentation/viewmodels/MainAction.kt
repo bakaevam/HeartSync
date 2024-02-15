@@ -19,4 +19,8 @@ sealed interface MainAction : Action {
     class OnNavItemClick(
         val bottomItem: UiBottomItem,
     ) : MainAction
+
+    class OnPermissionGrant(
+        val permissions: Map<String, Boolean>,
+    ) : MainAction
 }

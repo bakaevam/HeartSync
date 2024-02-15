@@ -44,6 +44,12 @@ fun CabinetBody(
         }
         AppButton(
             modifier = Modifier.fillMaxWidth(),
+            text = stringResource(R.string.cabinet_camera),
+            type = Type.OUTLINE,
+            onClick = { onAction(CabinetAction.OnOpenCameraClick) },
+        )
+        AppButton(
+            modifier = Modifier.fillMaxWidth(),
             text = stringResource(R.string.cabinet_sign_out),
             type = Type.OUTLINE,
             onClick = { onAction(CabinetAction.OnSignOutClick) },

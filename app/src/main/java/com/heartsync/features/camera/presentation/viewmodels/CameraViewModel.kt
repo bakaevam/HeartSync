@@ -1,0 +1,71 @@
+package com.heartsync.features.camera.presentation.viewmodels
+
+import android.util.Log
+import androidx.camera.core.CameraSelector
+import androidx.lifecycle.viewModelScope
+import com.heartsync.R
+import com.heartsync.core.base.MviViewModel
+import com.heartsync.features.camera.domain.repositories.CameraRepository
+import com.heartsync.features.main.data.providers.TextProvider
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+
+class CameraViewModel(
+    private val cameraRepository: CameraRepository,
+    private val textProvider: TextProvider,
+) : MviViewModel<CameraState, CameraEffect, CameraAction>(CameraState()) {
+
+    private val lensFacing = MutableStateFlow<Int>(CameraSelector.LENS_FACING_BACK)
+
+    init {
+        viewModelScope.launch {
+            setState {
+                copy(
+                    imageCapture = cameraRepository.getImageCapture(),
+                )
+            }
+            cameraRepository.startCamera()
+        }
+        lensFacing
+            .onEach { lens ->
+                setState { copy(cameraSelector = cameraRepository.getCameraSelector(lens)) }
+            }
+            .launchIn(viewModelScope)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        cameraRepository.stopCamera()
+    }
+
+    override fun onAction(action: CameraAction) = when (action) {
+        is CameraAction.OnChangeLensClick -> changeCameraLens()
+        is CameraAction.OnTakePictureClick -> onTakePictureClick()
+    }
+
+    private fun onTakePictureClick() {
+        viewModelScope.launch {
+            try {
+                cameraRepository.takePicture {
+                    postEffect(CameraEffect.ShowMessage(textProvider.getString(R.string.camera_take_picture_success)))
+                }
+            } catch (e: Throwable) {
+                Log.e(TAG, "Failed to take a picture")
+                postEffect(CameraEffect.ShowMessage())
+            }
+        }
+    }
+
+    private fun changeCameraLens() {
+        lensFacing.value = when (lensFacing.value) {
+            CameraSelector.LENS_FACING_BACK -> CameraSelector.LENS_FACING_FRONT
+            else -> CameraSelector.LENS_FACING_BACK
+        }
+    }
+
+    private companion object {
+        private const val TAG = "Camera ViewModel"
+    }
+}

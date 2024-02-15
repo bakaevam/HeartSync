@@ -4,9 +4,14 @@ import com.heartsync.features.authphone.enteremail.data.EnterEmailRepositoryImpl
 import com.heartsync.features.authphone.enteremail.domain.EnterEmailRepository
 import com.heartsync.features.authphone.smscode.data.SmsCodeRepositoryImpl
 import com.heartsync.features.authphone.smscode.domain.SmsCodeRepository
+import com.heartsync.features.camera.data.providers.CameraProvider
+import com.heartsync.features.camera.data.repositories.CameraRepositoryImpl
+import com.heartsync.features.camera.domain.repositories.CameraRepository
 import com.heartsync.features.main.data.providers.auth.FirebaseAuthProvider
+import com.heartsync.features.main.data.repositories.DateTimeRepositoryImpl
 import com.heartsync.features.main.data.store.FirebaseDatabase
 import com.heartsync.features.main.data.store.FirebaseStoreImpl
+import com.heartsync.features.main.domain.repositories.DateTimeRepository
 import com.heartsync.features.main.domain.store.FirebaseStore
 import com.heartsync.features.profiledetail.data.repository.UserRepositoryImpl
 import com.heartsync.features.profiledetail.domain.repository.UserRepository
@@ -47,6 +52,15 @@ val repositoryModule = module {
         UserRepositoryImpl(
             firebaseAuthProvider = get<FirebaseAuthProvider>(),
             database = get<FirebaseDatabase>(),
+        )
+    }
+    single<DateTimeRepository> {
+        DateTimeRepositoryImpl()
+    }
+    single<CameraRepository> {
+        CameraRepositoryImpl(
+            fileProvider = get<FileProvider>(),
+            cameraProvider = get<CameraProvider>(),
         )
     }
 }
