@@ -38,6 +38,7 @@ fun CabinetBody(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally),
                 avatarUrl = profileData.avatar,
+                onEditClick = { onAction(CabinetAction.OnEditAvatarClick) }
             )
             AppText(
                 text = stringResource(R.string.cabinet_profile_title),

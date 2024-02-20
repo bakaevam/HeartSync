@@ -115,7 +115,7 @@ fun MainScreen(
                         MessagesScreen()
                     }
                     composable(destination = Destination.CabinetScreen) {
-                        CabinetScreen()
+                        CabinetScreen(it)
                     }
                     composable(destination = Destination.CameraScreen) {
                         CameraScreen()
