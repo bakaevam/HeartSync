@@ -15,12 +15,23 @@ class FileProvider(
             CAMERA_DIRECTORY,
         )
 
-    fun createNewFileName(fileName: String, suffix: String): String {
+    fun createNewFileName(
+        fileName: String,
+        suffix: String,
+        withDateTime: Boolean = true,
+    ): String {
         val currentDateTime = dateTimeRepository.getCurrentDateTime()
-        val dateTime = DateFormatter.formatFileDateTime(currentDateTime)
-        val fileExtension = fileName.substringAfterLast(DELIMITER, suffix)
-        val baseFilename = fileName.substringBeforeLast(DELIMITER)
-        return "$baseFilename-$dateTime.$fileExtension"
+        return buildString {
+            append(fileName)
+            if (withDateTime) {
+                val dateTime = DateFormatter.formatFileDateTime(currentDateTime)
+                append('-')
+                append(dateTime)
+            }
+            append('.')
+            val fileExtension = fileName.substringAfterLast(DELIMITER, suffix)
+            append(fileExtension)
+        }
     }
 
     private companion object {

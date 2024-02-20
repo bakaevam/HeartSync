@@ -21,6 +21,13 @@ fun NavigationEffects(
             }
             when (intent) {
                 is NavigationIntent.NavigateBack -> {
+                    if (intent.data != null) {
+                        navHostController.previousBackStackEntry?.savedStateHandle?.let {
+                            for ((key, value) in intent.data) {
+                                it[key] = value
+                            }
+                        }
+                    }
                     if (intent.route != null) {
                         navHostController.popBackStack(intent.route, intent.inclusive)
                     } else {

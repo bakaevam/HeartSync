@@ -17,4 +17,11 @@ class PermissionsProvider(
         } else {
             true
         }
+
+    fun checkReadMedia(): Boolean =
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU) {
+            contextProvider.checkPermission(Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED
+        } else {
+            true
+        }
 }

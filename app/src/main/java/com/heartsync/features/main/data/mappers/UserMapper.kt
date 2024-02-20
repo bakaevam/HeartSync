@@ -1,5 +1,6 @@
 package com.heartsync.features.main.data.mappers
 
+import android.net.Uri
 import com.heartsync.core.tools.EMPTY_STRING
 import com.heartsync.core.tools.format.DateFormatter
 import com.heartsync.core.tools.format.DateMapper
@@ -42,5 +43,6 @@ object UserMapper {
             name = dbUserInfo.name ?: EMPTY_STRING,
             lastname = dbUserInfo.lastName ?: EMPTY_STRING,
             birthday = dbUserInfo.birthday?.let(DateFormatter::toLocalDate),
+            avatar = Uri.EMPTY,
         )
 }

@@ -1,14 +1,17 @@
 package com.heartsync.features.camera.presentation.viewmodels
 
 import android.Manifest
+import android.net.Uri
 import android.util.Log
 import androidx.camera.core.CameraSelector
 import androidx.lifecycle.viewModelScope
 import com.heartsync.R
 import com.heartsync.core.base.MviViewModel
 import com.heartsync.core.tools.navigation.AppNavigator
+import com.heartsync.core.tools.navigation.Destination
 import com.heartsync.features.camera.domain.repositories.CameraRepository
 import com.heartsync.features.main.data.providers.TextProvider
+import com.heartsync.features.main.data.store.StorageSourceImpl
 import com.heartsync.features.main.domain.repositories.PermissionRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -26,7 +29,9 @@ class CameraViewModel(
     private val permissions = arrayOf(
         Manifest.permission.CAMERA,
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.READ_MEDIA_IMAGES,
     )
+    private val avatarUriState = MutableStateFlow<Uri?>(null)
 
     init {
         checkPermissions()
@@ -68,7 +73,9 @@ class CameraViewModel(
     private fun checkPermissions() {
         when {
             permissions.all { permission ->
-                permissionRepository.checkPermission(permission)
+                val granted = permissionRepository.checkPermission(permission)
+                Log.e(TAG, "$permission = $granted")
+                granted
             } -> {
                 startCamera()
                 setState {
@@ -101,9 +108,15 @@ class CameraViewModel(
     private fun onTakePictureClick() {
         viewModelScope.launch {
             try {
-                cameraRepository.takePicture {
-                    postEffect(CameraEffect.ShowMessage(textProvider.getString(R.string.camera_take_picture_success)))
-                }
+                cameraRepository.takePicture(
+                    filename = StorageSourceImpl.FILENAME_AVATAR,
+                    onImageCaptured = { uri ->
+                        postEffect(CameraEffect.ShowMessage(textProvider.getString(R.string.camera_take_picture_success)))
+                        appNavigator.tryNavigateBack(
+                            data = mapOf(Destination.ProfileDetailScreen.KEY_AVATAR to uri.toString()),
+                        )
+                    }
+                )
             } catch (e: Throwable) {
                 Log.e(TAG, "Failed to take a picture")
                 postEffect(CameraEffect.ShowMessage())

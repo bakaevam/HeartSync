@@ -102,7 +102,7 @@ fun MainScreen(
                     }
                     composable(destination = Destination.ProfileDetailScreen) {
                         viewModel.onAction(MainAction.OnNavigateProfileDetail)
-                        ProfileDetailScreen()
+                        ProfileDetailScreen(it)
                     }
                     composable(destination = Destination.DiscoveryScreen) {
                         viewModel.onAction(MainAction.OnNavigateDiscovery)
@@ -115,7 +115,7 @@ fun MainScreen(
                         MessagesScreen()
                     }
                     composable(destination = Destination.CabinetScreen) {
-                        CabinetScreen()
+                        CabinetScreen(it)
                     }
                     composable(destination = Destination.CameraScreen) {
                         CameraScreen()

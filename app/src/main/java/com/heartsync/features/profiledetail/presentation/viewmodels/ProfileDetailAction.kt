@@ -12,6 +12,10 @@ sealed interface ProfileDetailAction : Action {
 
     object OnBirthdayClick : ProfileDetailAction
 
+    class OnResume(
+        val avatar: String? = null,
+    ) : ProfileDetailAction
+
     class OnNameChange(
         val name: String,
     ) : ProfileDetailAction

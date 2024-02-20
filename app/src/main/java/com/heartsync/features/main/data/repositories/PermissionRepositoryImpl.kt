@@ -14,6 +14,10 @@ class PermissionRepositoryImpl(
                 permissionsProvider.checkWriteExternalStoragePermission()
             }
 
+            Manifest.permission.READ_MEDIA_IMAGES -> {
+                permissionsProvider.checkReadMedia()
+            }
+
             else -> permissionsProvider.checkPermission(permission)
         }
     }

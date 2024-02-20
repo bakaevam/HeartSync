@@ -75,6 +75,7 @@ val viewModelModule = module {
         ProfileDetailViewModel(
             appNavigator = get<AppNavigator>(),
             userRepository = get<UserRepository>(),
+            cameraRepository = get<CameraRepository>(),
         )
     }
     viewModel {
@@ -88,6 +89,7 @@ val viewModelModule = module {
             signOutUseCase = get<SignOutUseCase>(),
             userRepository = get<UserRepository>(),
             appNavigator = get<AppNavigator>(),
+            cameraRepository = get<CameraRepository>(),
         )
     }
     viewModel {

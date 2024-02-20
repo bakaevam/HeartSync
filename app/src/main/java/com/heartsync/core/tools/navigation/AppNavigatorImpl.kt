@@ -19,11 +19,12 @@ class AppNavigatorImpl : AppNavigator {
         )
     }
 
-    override fun tryNavigateBack(route: String?, inclusive: Boolean) {
+    override fun tryNavigateBack(route: String?, inclusive: Boolean, data: Map<String, Any?>?) {
         navigationChannel.trySend(
             NavigationIntent.NavigateBack(
                 route = route,
-                inclusive = inclusive
+                inclusive = inclusive,
+                data = data,
             )
         )
     }
