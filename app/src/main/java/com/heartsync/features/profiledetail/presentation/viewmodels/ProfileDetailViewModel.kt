@@ -1,6 +1,8 @@
 package com.heartsync.features.profiledetail.presentation.viewmodels
 
+import android.net.Uri
 import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.heartsync.core.base.MviViewModel
 import com.heartsync.core.tools.EMPTY_STRING
@@ -10,6 +12,7 @@ import com.heartsync.core.tools.format.DateMapper
 import com.heartsync.core.tools.navigation.AppNavigator
 import com.heartsync.core.tools.navigation.Destination
 import com.heartsync.core.tools.navigation.Route
+import com.heartsync.features.camera.domain.repositories.CameraRepository
 import com.heartsync.features.profiledetail.domain.repository.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -20,6 +23,8 @@ import java.time.LocalDate
 class ProfileDetailViewModel(
     private val appNavigator: AppNavigator,
     private val userRepository: UserRepository,
+    private val savedStateHandle: SavedStateHandle,
+    private val cameraRepository: CameraRepository,
 ) : MviViewModel<ProfileDetailState, ProfileDetailEffect, ProfileDetailAction>(
     ProfileDetailState()
 ) {
@@ -39,6 +44,19 @@ class ProfileDetailViewModel(
                 setState { copy(lastName = lastname) }
             }
             .launchIn(viewModelScope)
+        val avatar =
+            savedStateHandle.getStateFlow<String?>(Destination.ProfileDetailScreen.KEY_AVATAR, null)
+        avatar
+            .onEach { avatarUri ->
+                try {
+                    avatarUri?.let {
+                        cameraRepository.uploadAvatar(Uri.parse(it))
+                    }
+                } catch (e: Throwable) {
+                    Log.e(TAG, "Failed to upload avatar")
+                }
+            }
+            .launchIn(viewModelScope)
     }
 
     override fun onAction(action: ProfileDetailAction) = when (action) {
@@ -46,9 +64,27 @@ class ProfileDetailViewModel(
         is ProfileDetailAction.OnNameChange -> onNameChange(action)
         is ProfileDetailAction.OnSaveClick -> onSaveClick()
         is ProfileDetailAction.OnSkipClick -> onSkipClick()
-        is ProfileDetailAction.OnEditAvatarClick -> {}
+        is ProfileDetailAction.OnEditAvatarClick -> appNavigator.tryNavigateTo(Destination.CameraScreen.fullRoute)
         is ProfileDetailAction.OnBirthdayClick -> onBirthdayClick()
         is ProfileDetailAction.OnBirthdayConfirm -> onBirthdayConfirm(action)
+        is ProfileDetailAction.OnResume -> onResume(action)
+    }
+
+    private fun onResume(action: ProfileDetailAction.OnResume) {
+        viewModelScope.launch {
+            try {
+                action.avatar?.let {
+                    setState {
+                        copy(
+                            avatar = it,
+                        )
+                    }
+                    cameraRepository.uploadAvatar(Uri.parse(it))
+                }
+            } catch (e: Throwable) {
+                Log.e(TAG, "Failed to upload avatar")
+            }
+        }
     }
 
     private fun onNameChange(action: ProfileDetailAction.OnNameChange) {

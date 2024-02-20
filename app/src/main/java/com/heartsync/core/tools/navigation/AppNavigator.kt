@@ -14,6 +14,7 @@ interface AppNavigator {
     fun tryNavigateBack(
         route: String? = null,
         inclusive: Boolean = false,
+        data: Map<String, Any?>? = null,
     )
 
     suspend fun navigateTo(
@@ -37,6 +38,7 @@ sealed class NavigationIntent {
     data class NavigateBack(
         val route: String? = null,
         val inclusive: Boolean = false,
+        val data: Map<String, Any?>? = null,
     ) : NavigationIntent()
 
     data class NavigateTo(

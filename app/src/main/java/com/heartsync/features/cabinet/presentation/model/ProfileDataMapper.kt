@@ -11,5 +11,6 @@ object ProfileDataMapper {
             name = data.name,
             lastName = data.lastname,
             birthday = data.birthday?.let(DateFormatter::formatDateString) ?: EMPTY_STRING,
+            avatar = data.avatar.toString(),
         )
 }

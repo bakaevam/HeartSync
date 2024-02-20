@@ -8,6 +8,7 @@ interface CameraRepository {
 
     fun takePicture(
         onImageCaptured: (Uri) -> Unit,
+        filename: String? = null,
     )
 
     fun getImageCapture(): ImageCapture
@@ -17,4 +18,6 @@ interface CameraRepository {
     fun stopCamera()
 
     fun getCameraSelector(lensFacing: Int): CameraSelector
+
+    suspend fun uploadAvatar(uri: Uri)
 }

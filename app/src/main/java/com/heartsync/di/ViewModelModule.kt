@@ -71,10 +71,12 @@ val viewModelModule = module {
     viewModel {
         DiscoveryViewModel()
     }
-    viewModel {
+    viewModel { (arguments: SavedStateHandle) ->
         ProfileDetailViewModel(
             appNavigator = get<AppNavigator>(),
             userRepository = get<UserRepository>(),
+            cameraRepository = get<CameraRepository>(),
+            savedStateHandle = arguments,
         )
     }
     viewModel {

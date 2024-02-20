@@ -61,7 +61,10 @@ sealed class Destination(
         )
     }
 
-    object ProfileDetailScreen : NoArgumentsDestination(Route.PROFILE_DETAIL.key)
+    object ProfileDetailScreen : NoArgumentsDestination(Route.PROFILE_DETAIL.key) {
+
+        const val KEY_AVATAR = "avatar"
+    }
 
     object DiscoveryScreen : NoArgumentsDestination(Route.DISCOVERY.key)
 

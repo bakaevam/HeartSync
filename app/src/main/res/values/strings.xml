@@ -74,6 +74,7 @@
     <string name="cabinet_profile_title">Данные профиля</string>
     <string name="cabinet_sign_out">Выйти из аккаунта</string>
     <string name="cabinet_camera">Открыть камеру</string>
+    <string name="cabinet_edit_profile_data">Изменить данные</string>
 
     <!--Camera-->
     <string name="camera_take_picture_success">Снимок сохранён в галерею</string>

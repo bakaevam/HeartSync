@@ -12,9 +12,11 @@ import com.heartsync.features.main.data.repositories.DateTimeRepositoryImpl
 import com.heartsync.features.main.data.repositories.PermissionRepositoryImpl
 import com.heartsync.features.main.data.store.FirebaseDatabase
 import com.heartsync.features.main.data.store.FirebaseStoreImpl
+import com.heartsync.features.main.data.store.StorageSourceImpl
 import com.heartsync.features.main.domain.repositories.DateTimeRepository
 import com.heartsync.features.main.domain.repositories.PermissionRepository
 import com.heartsync.features.main.domain.store.FirebaseStore
+import com.heartsync.features.main.domain.store.StorageSource
 import com.heartsync.features.profiledetail.data.repository.UserRepositoryImpl
 import com.heartsync.features.profiledetail.domain.repository.UserRepository
 import com.heartsync.features.signup.data.AuthRepositoryImpl
@@ -26,6 +28,9 @@ import org.koin.dsl.module
 val repositoryModule = module {
     single<FirebaseStore> {
         FirebaseStoreImpl()
+    }
+    single<StorageSource> {
+        StorageSourceImpl()
     }
     single<WelcomeRepository> {
         WelcomeRepositoryImpl(
@@ -54,6 +59,7 @@ val repositoryModule = module {
         UserRepositoryImpl(
             firebaseAuthProvider = get<FirebaseAuthProvider>(),
             database = get<FirebaseDatabase>(),
+            storageSource = get<StorageSource>(),
         )
     }
     single<DateTimeRepository> {
@@ -63,6 +69,8 @@ val repositoryModule = module {
         CameraRepositoryImpl(
             fileProvider = get<FileProvider>(),
             cameraProvider = get<CameraProvider>(),
+            firebaseAuthProvider = get<FirebaseAuthProvider>(),
+            storageSource = get<StorageSource>(),
         )
     }
     single<PermissionRepository> {
