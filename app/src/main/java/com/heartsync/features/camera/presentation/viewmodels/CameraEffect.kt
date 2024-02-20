@@ -6,6 +6,8 @@ sealed interface CameraEffect : Effect {
 
     object OpenAppSettings : CameraEffect
 
+    object OpenGallery : CameraEffect
+
     class ShowMessage(
         val message: String? = null,
     ) : CameraEffect

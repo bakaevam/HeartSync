@@ -13,8 +13,10 @@ class StorageSourceImpl : StorageSource {
     override suspend fun loadPhoto(
         uri: Uri,
         userId: String,
+        filename: String?,
     ) {
-        val reference = storage.reference.child("$PATH_AVATARS$userId/${uri.lastPathSegment}")
+        val file = filename ?: uri.lastPathSegment
+        val reference = storage.reference.child("$PATH_AVATARS$userId/$file")
         reference.putFile(uri).await()
     }
 

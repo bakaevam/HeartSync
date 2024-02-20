@@ -7,6 +7,7 @@ interface StorageSource {
     suspend fun loadPhoto(
         uri: Uri,
         userId: String,
+        filename: String?,
     )
 
     suspend fun getAvatar(userId: String): Uri

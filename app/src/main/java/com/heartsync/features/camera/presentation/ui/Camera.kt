@@ -9,11 +9,9 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -87,8 +85,16 @@ fun Camera(
                 .align(Alignment.BottomCenter)
                 .padding(16.dp),
             horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            Spacer(Modifier.size(72.dp))
+            AppIcon(
+                modifier = Modifier.clickable(
+                    interactionSource = MutableInteractionSource(),
+                    indication = rememberRipple(bounded = false),
+                    onClick = { onAction(CameraAction.OnGalleryClick) },
+                ),
+                painter = painterResource(R.drawable.ic_gallery),
+            )
             AppIcon(
                 modifier = Modifier.clickable(
                     interactionSource = MutableInteractionSource(),

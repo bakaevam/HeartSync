@@ -54,6 +54,8 @@ class CameraViewModel(
         is CameraAction.OnPermissionClick -> onCameraPermissionClick()
         is CameraAction.PermissionsResult -> handlePermissionsResult(action)
         is CameraAction.OnResume -> checkPermissions()
+        is CameraAction.OnGalleryClick -> postEffect(CameraEffect.OpenGallery)
+        is CameraAction.OnPhotoGalleryChoose -> onPhotoGalleryChoose(action)
     }
 
     private fun handlePermissionsResult(action: CameraAction.PermissionsResult) {
@@ -87,6 +89,14 @@ class CameraViewModel(
             }
 
             else -> postEffect(CameraEffect.RequestPermission(permissions))
+        }
+    }
+
+    private fun onPhotoGalleryChoose(action: CameraAction.OnPhotoGalleryChoose) {
+        if (action.photo != null) {
+            appNavigator.tryNavigateBack(
+                data = mapOf(Destination.ProfileDetailScreen.KEY_AVATAR to action.photo.toString()),
+            )
         }
     }
 

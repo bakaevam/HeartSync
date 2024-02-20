@@ -1,6 +1,7 @@
 package com.heartsync.features.camera.presentation.ui
 
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -44,10 +45,15 @@ fun CameraScreen(
         }
     }
 
-    val launcher = rememberLauncherForActivityResult(
+    val permissionsLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
         viewModel.onAction(CameraAction.PermissionsResult(permissions))
+    }
+    val galleryLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.PickVisualMedia()
+    ) { uri ->
+        viewModel.onAction(CameraAction.OnPhotoGalleryChoose(uri))
     }
     val activity = LocalContext.current as MainActivity
     OnLifecycleEvent { owner, event ->
@@ -62,8 +68,13 @@ fun CameraScreen(
     CollectEffect(source = viewModel.effect) { effect ->
         when (effect) {
             is CameraEffect.ShowMessage -> activity.showToast(effect.message)
-            is CameraEffect.RequestPermission -> launcher.launch(effect.permissions)
+            is CameraEffect.RequestPermission -> permissionsLauncher.launch(effect.permissions)
             is CameraEffect.OpenAppSettings -> activity.openAppSettings()
+            is CameraEffect.OpenGallery -> galleryLauncher.launch(
+                PickVisualMediaRequest(
+                    mediaType = ActivityResultContracts.PickVisualMedia.ImageOnly,
+                )
+            )
         }
     }
 }
