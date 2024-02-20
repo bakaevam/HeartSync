@@ -1,5 +1,6 @@
 package com.heartsync.features.camera.presentation.viewmodels
 
+import android.net.Uri
 import com.heartsync.core.base.Action
 
 sealed interface CameraAction : Action {
@@ -14,7 +15,13 @@ sealed interface CameraAction : Action {
 
     object OnResume : CameraAction
 
+    object OnGalleryClick : CameraAction
+
     class PermissionsResult(
         val permissions: Map<String, Boolean>,
+    ) : CameraAction
+
+    class OnPhotoGalleryChoose(
+        val photo: Uri?,
     ) : CameraAction
 }

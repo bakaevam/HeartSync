@@ -7,6 +7,7 @@ import com.heartsync.features.camera.data.providers.CameraProvider
 import com.heartsync.features.camera.domain.repositories.CameraRepository
 import com.heartsync.features.main.data.providers.FileProvider
 import com.heartsync.features.main.data.providers.auth.FirebaseAuthProvider
+import com.heartsync.features.main.data.store.StorageSourceImpl.Companion.FILENAME_AVATAR
 import com.heartsync.features.main.domain.store.StorageSource
 import java.io.File
 
@@ -64,6 +65,7 @@ class CameraRepositoryImpl(
             storageSource.loadPhoto(
                 uri = uri,
                 userId = userUid,
+                filename = "$FILENAME_AVATAR.$PHOTO_SUFFIX"
             )
         }
     }
