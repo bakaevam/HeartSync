@@ -1,9 +1,12 @@
 package com.heartsync.core.tools.extention
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -44,5 +47,30 @@ fun OnLifecycleEvent(
         onDispose {
             lifecycle.removeObserver(observer)
         }
+    }
+}
+
+@SuppressLint("UnnecessaryComposedModifier")
+inline fun Modifier.condition(
+    condition: Boolean,
+    crossinline then: @Composable Modifier.() -> Modifier,
+): Modifier = composed {
+    if (condition) {
+        then()
+    } else {
+        this
+    }
+}
+
+@SuppressLint("UnnecessaryComposedModifier")
+inline fun Modifier.condition(
+    condition: Boolean,
+    crossinline then: @Composable Modifier.() -> Modifier,
+    crossinline another: @Composable Modifier.() -> Modifier,
+): Modifier = composed {
+    if (condition) {
+        then()
+    } else {
+        another(this)
     }
 }

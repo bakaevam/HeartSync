@@ -17,10 +17,10 @@ import androidx.compose.ui.unit.dp
 import com.heartsync.R
 import com.heartsync.core.ui.AvatarItem
 import com.heartsync.core.ui.appcomponents.AppButton
+import com.heartsync.core.ui.appcomponents.AppChooser
 import com.heartsync.core.ui.appcomponents.AppDropDownField
 import com.heartsync.core.ui.appcomponents.AppText
 import com.heartsync.core.ui.appcomponents.AppTextField
-import com.heartsync.core.ui.appcomponents.Type
 import com.heartsync.core.ui.theme.HeartSyncTheme
 import com.heartsync.core.ui.tools.AppPreview
 import com.heartsync.features.profiledetail.presentation.viewmodels.ProfileDetailAction
@@ -48,15 +48,6 @@ fun ProfileDetailBody(
             .fillMaxSize()
             .padding(horizontal = 40.dp, vertical = 25.dp),
     ) {
-        AppButton(
-            modifier = Modifier
-                .padding(top = 16.dp)
-                .align(Alignment.End),
-            text = stringResource(R.string.navigation_skip),
-            type = Type.GHOST,
-            onClick = { onAction(ProfileDetailAction.OnSkipClick) },
-        )
-        Spacer(Modifier.height(24.dp))
         AppText(
             text = stringResource(R.string.profile_detail_title),
             style = MaterialTheme.typography.headlineLarge.copy(
@@ -95,10 +86,17 @@ fun ProfileDetailBody(
             icon = painterResource(R.drawable.ic_calendar),
             onClick = { onAction(ProfileDetailAction.OnBirthdayClick) },
         )
+        Spacer(Modifier.height(16.dp))
+        AppChooser(
+            items = state.genders,
+            selectId = state.selectedGender,
+            onClick = { id -> onAction(ProfileDetailAction.OnGenderClick(id)) },
+        )
         Spacer(Modifier.height(24.dp))
         AppButton(
             modifier = Modifier.fillMaxWidth(),
             text = stringResource(R.string.action_save),
+            enabled = state.saveEnabled,
             onClick = { onAction(ProfileDetailAction.OnSaveClick) },
         )
     }

@@ -66,8 +66,9 @@ fun AppButton(
     enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
-    val background = when (type) {
-        Type.REGULAR -> MaterialTheme.colorScheme.primary
+    val background = when {
+        enabled && type == Type.REGULAR -> MaterialTheme.colorScheme.primary
+        type == Type.REGULAR -> MaterialTheme.colorScheme.outline
         else -> Color.Transparent
     }
     val border = when (type) {

@@ -3,6 +3,7 @@ package com.heartsync.features.profiledetail.presentation.viewmodels
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.heartsync.R
 import com.heartsync.core.base.MviViewModel
 import com.heartsync.core.tools.EMPTY_STRING
 import com.heartsync.core.tools.INT_ONE
@@ -10,8 +11,9 @@ import com.heartsync.core.tools.format.DateFormatter
 import com.heartsync.core.tools.format.DateMapper
 import com.heartsync.core.tools.navigation.AppNavigator
 import com.heartsync.core.tools.navigation.Destination
-import com.heartsync.core.tools.navigation.Route
+import com.heartsync.core.ui.model.UiChooserItem
 import com.heartsync.features.camera.domain.repositories.CameraRepository
+import com.heartsync.features.main.data.providers.TextProvider
 import com.heartsync.features.profiledetail.domain.repository.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -23,6 +25,7 @@ class ProfileDetailViewModel(
     private val appNavigator: AppNavigator,
     private val userRepository: UserRepository,
     private val cameraRepository: CameraRepository,
+    private val textProvider: TextProvider,
 ) : MviViewModel<ProfileDetailState, ProfileDetailEffect, ProfileDetailAction>(
     ProfileDetailState()
 ) {
@@ -30,11 +33,14 @@ class ProfileDetailViewModel(
     private val nameFlow = MutableStateFlow(EMPTY_STRING)
     private val lastnameFlow = MutableStateFlow(EMPTY_STRING)
     private val birthdayFlow = MutableStateFlow<LocalDate?>(null)
+    private var selectedGender: String? = null
 
     init {
+        setGenders()
         nameFlow
             .onEach { name ->
                 setState { copy(name = name) }
+                validate()
             }
             .launchIn(viewModelScope)
         lastnameFlow
@@ -48,11 +54,11 @@ class ProfileDetailViewModel(
         is ProfileDetailAction.OnLastnameChange -> onLastnameChange(action)
         is ProfileDetailAction.OnNameChange -> onNameChange(action)
         is ProfileDetailAction.OnSaveClick -> onSaveClick()
-        is ProfileDetailAction.OnSkipClick -> onSkipClick()
         is ProfileDetailAction.OnEditAvatarClick -> appNavigator.tryNavigateTo(Destination.CameraScreen.fullRoute)
         is ProfileDetailAction.OnBirthdayClick -> onBirthdayClick()
         is ProfileDetailAction.OnBirthdayConfirm -> onBirthdayConfirm(action)
         is ProfileDetailAction.OnResume -> onResume(action)
+        is ProfileDetailAction.OnGenderClick -> onGenderClick(action)
     }
 
     private fun onResume(action: ProfileDetailAction.OnResume) {
@@ -80,15 +86,6 @@ class ProfileDetailViewModel(
         lastnameFlow.value = action.lastname
     }
 
-    private fun onSkipClick() {
-        appNavigator.tryNavigateTo(
-            route = Route.DISCOVERY.key,
-            inclusive = true,
-            isSingleTop = true,
-            popBackStack = true,
-        )
-    }
-
     private fun onSaveClick() {
         viewModelScope.launch {
             try {
@@ -97,6 +94,7 @@ class ProfileDetailViewModel(
                     name = nameFlow.value.takeIf { it.isNotEmpty() },
                     lastname = lastnameFlow.value.takeIf { it.isNotEmpty() },
                     birthday = birthdayFlow.value,
+                    gender = selectedGender ?: throw Exception("Gender is null"),
                 )
                 appNavigator.tryNavigateTo(Destination.DiscoveryScreen.fullRoute)
             } catch (e: Throwable) {
@@ -125,11 +123,48 @@ class ProfileDetailViewModel(
         val birthday = LocalDate.of(action.year, action.month + INT_ONE, action.day)
         birthdayFlow.value = birthday
         setState { copy(birthday = DateFormatter.formatDateString(birthday)) }
+        validate()
+    }
+
+    private fun onGenderClick(action: ProfileDetailAction.OnGenderClick) {
+        selectedGender = action.id
+        setState {
+            copy(
+                selectedGender = this@ProfileDetailViewModel.selectedGender,
+            )
+        }
+        validate()
+    }
+
+    private fun setGenders() {
+        setState {
+            copy(
+                genders = setOf(
+                    UiChooserItem(
+                        id = ID_WOMAN,
+                        title = textProvider.getString(R.string.profile_detail_woman),
+                    ),
+                    UiChooserItem(
+                        id = ID_MAN,
+                        title = textProvider.getString(R.string.profile_detail_man),
+                    ),
+                ),
+            )
+        }
+    }
+
+    private fun validate() {
+        val saveEnabled = nameFlow.value.isNotEmpty()
+            && birthdayFlow.value != null
+            && selectedGender != null
+        setState { copy(saveEnabled = saveEnabled) }
     }
 
     private companion object {
         private const val TAG = "Profile Detail View Model"
 
         private const val AGE_OF_MAJORITY = 18L
+        private const val ID_MAN = "man"
+        private const val ID_WOMAN = "woman"
     }
 }

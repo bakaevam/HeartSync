@@ -20,6 +20,7 @@ class UserRepositoryImpl(
         name: String?,
         lastname: String?,
         birthday: LocalDate?,
+        gender: String,
     ) {
         val userUid = firebaseAuthProvider.getUserUid()
         if (userUid != null) {
@@ -29,6 +30,7 @@ class UserRepositoryImpl(
                     name = name,
                     lastName = lastname,
                     birthday = birthday,
+                    gender = gender,
                 ),
             )
         }

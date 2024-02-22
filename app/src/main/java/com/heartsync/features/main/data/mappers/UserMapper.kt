@@ -18,7 +18,8 @@ object UserMapper {
             lastName = userInfo.lastname,
             birthday = DateMapper.formatDayMonthYear(userInfo.birthday),
             profession = null,
-            about = null
+            about = null,
+            gender = userInfo.gender,
         )
 
     fun createDbUser(
@@ -28,6 +29,7 @@ object UserMapper {
         birthday: LocalDate? = null,
         profession: String? = null,
         about: String? = null,
+        gender: String,
     ): DbUserInfo =
         DbUserInfo(
             imageUrl = imageUrl,
@@ -36,6 +38,7 @@ object UserMapper {
             birthday = DateMapper.formatDayMonthYear(birthday),
             profession = profession,
             about = about,
+            gender = gender,
         )
 
     fun toProfileData(dbUserInfo: DbUserInfo): ProfileData =

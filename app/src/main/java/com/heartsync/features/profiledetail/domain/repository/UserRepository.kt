@@ -9,6 +9,7 @@ interface UserRepository {
         name: String?,
         lastname: String?,
         birthday: LocalDate?,
+        gender: String,
     )
 
     suspend fun getProfileData(): ProfileData?

@@ -10,4 +10,5 @@ data class DbUserInfo(
     val birthday: String? = null,
     val profession: String? = null,
     val about: String? = null,
+    val gender: String,
 )
