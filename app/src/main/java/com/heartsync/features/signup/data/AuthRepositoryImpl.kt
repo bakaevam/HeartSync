@@ -80,5 +80,6 @@ class AuthRepositoryImpl(
             name = EMPTY_STRING,
             lastname = EMPTY_STRING,
             birthday = null,
+            gender = EMPTY_STRING,
         )
 }

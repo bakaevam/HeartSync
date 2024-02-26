@@ -63,6 +63,8 @@
     <string name="profile_detail_name_placeholder">Имя</string>
     <string name="profile_detail_lastname_placeholder">Фамилия</string>
     <string name="profile_detail_birthday_placeholder">Выберите дату рождения</string>
+    <string name="profile_detail_woman">Ж</string>
+    <string name="profile_detail_man">М</string>
 
     <!--Discovery-->
     <string name="discovery_title">Поиск пары</string>

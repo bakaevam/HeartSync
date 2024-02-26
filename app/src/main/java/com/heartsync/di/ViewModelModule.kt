@@ -76,6 +76,7 @@ val viewModelModule = module {
             appNavigator = get<AppNavigator>(),
             userRepository = get<UserRepository>(),
             cameraRepository = get<CameraRepository>(),
+            textProvider = get<TextProvider>(),
         )
     }
     viewModel {

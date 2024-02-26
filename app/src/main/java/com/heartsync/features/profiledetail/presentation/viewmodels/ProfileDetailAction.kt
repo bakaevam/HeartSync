@@ -4,8 +4,6 @@ import com.heartsync.core.base.Action
 
 sealed interface ProfileDetailAction : Action {
 
-    object OnSkipClick : ProfileDetailAction
-
     object OnSaveClick : ProfileDetailAction
 
     object OnEditAvatarClick : ProfileDetailAction
@@ -28,5 +26,9 @@ sealed interface ProfileDetailAction : Action {
         val year: Int,
         val month: Int,
         val day: Int,
+    ) : ProfileDetailAction
+
+    class OnGenderClick(
+        val id: String,
     ) : ProfileDetailAction
 }
