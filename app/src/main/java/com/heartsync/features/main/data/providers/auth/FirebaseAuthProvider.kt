@@ -144,6 +144,9 @@ class FirebaseAuthProvider {
         firebaseAuth.signOut()
     }
 
+    suspend fun createJwtToken(): String? =
+        firebaseAuth.currentUser?.getIdToken(false)?.await()?.token
+
     private fun signInWithCredential(credential: AuthCredential) =
         firebaseAuth.signInWithCredential(credential)
 

@@ -32,6 +32,7 @@ val viewModelModule = module {
             appNavigator = get<AppNavigator>(),
             enterEmailRepository = get<EnterEmailRepository>(),
             authRepository = get<AuthRepository>(),
+            userRepository = get<UserRepository>(),
         )
     }
     viewModel {
@@ -83,7 +84,9 @@ val viewModelModule = module {
         MatchesViewModel()
     }
     viewModel {
-        MessagesViewModel()
+        MessagesViewModel(
+            userRepository = get<UserRepository>(),
+        )
     }
     viewModel {
         CabinetViewModel(
