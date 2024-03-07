@@ -15,4 +15,5 @@ enum class Route(
     MESSAGES("messages"),
     CABINET("cabinet"),
     CAMERA("camera"),
+    CHAT("chat/{channelId}"),
 }

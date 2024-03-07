@@ -6,6 +6,7 @@ import androidx.compose.ui.res.stringResource
 import com.heartsync.R
 import com.heartsync.core.ui.appcomponents.AppText
 import com.heartsync.core.ui.theme.skModernist
+import com.heartsync.features.messages.presentation.viewmodels.MessagesAction
 import io.getstream.chat.android.compose.ui.channels.ChannelsScreen
 import io.getstream.chat.android.compose.ui.theme.ChatTheme
 import io.getstream.chat.android.compose.ui.theme.StreamTypography
@@ -15,6 +16,7 @@ import io.getstream.chat.android.models.InitializationState
 fun MessagesBody(
     state: InitializationState?,
     modifier: Modifier = Modifier,
+    onAction: (MessagesAction) -> Unit,
 ) {
     ChatTheme(
         typography = StreamTypography.defaultTypography(skModernist),
@@ -25,7 +27,7 @@ fun MessagesBody(
                     title = stringResource(R.string.messages_title),
                     isShowingSearch = true,
                     onItemClick = { channel ->
-
+                        onAction(MessagesAction.OnChannelClick(channel.id))
                     },
                 )
             }

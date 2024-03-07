@@ -2,6 +2,7 @@ package com.heartsync.core.providers
 
 import android.content.Context
 import com.heartsync.BuildConfig
+import com.heartsync.core.tools.EMPTY_STRING
 import io.getstream.chat.android.client.ChatClient
 import io.getstream.chat.android.client.logger.ChatLogLevel
 import io.getstream.chat.android.client.setup.state.ClientState
@@ -59,6 +60,16 @@ class ChatProvider(
     fun getClientState(): ClientState? =
         client.value?.clientState
 
+    suspend fun createChannel(): io.getstream.chat.android.models.Channel? {
+        return client.value?.createChannel(
+            channelType = CHANNEL_TYPE,
+            memberIds = listOf(),
+            channelId = EMPTY_STRING,
+            extraData = emptyMap(),
+        )?.await()
+            ?.getOrNull()
+    }
+
     private fun createUser(
         userUid: String,
         nickname: String,
@@ -67,5 +78,9 @@ class ChatProvider(
             id = userUid,
             name = nickname,
         )
+    }
+
+    private companion object {
+        private const val CHANNEL_TYPE = "messaging"
     }
 }

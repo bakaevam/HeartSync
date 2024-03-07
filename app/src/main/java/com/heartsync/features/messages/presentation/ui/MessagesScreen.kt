@@ -20,6 +20,7 @@ fun MessagesScreen(
         val initializationState by state.clientState.collectAsState()
         MessagesBody(
             state = initializationState,
+            onAction = viewModel::onAction,
         )
     }
 }
