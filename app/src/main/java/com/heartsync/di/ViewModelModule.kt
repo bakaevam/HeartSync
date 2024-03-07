@@ -11,6 +11,7 @@ import com.heartsync.features.cabinet.domain.usecase.SignOutUseCase
 import com.heartsync.features.cabinet.presentation.viewmodels.CabinetViewModel
 import com.heartsync.features.camera.domain.repositories.CameraRepository
 import com.heartsync.features.camera.presentation.viewmodels.CameraViewModel
+import com.heartsync.features.chat.presentation.viewmodels.ChatViewModel
 import com.heartsync.features.discovery.presentation.viewmodels.DiscoveryViewModel
 import com.heartsync.features.main.data.providers.TextProvider
 import com.heartsync.features.main.domain.repositories.PermissionRepository
@@ -32,6 +33,7 @@ val viewModelModule = module {
             appNavigator = get<AppNavigator>(),
             enterEmailRepository = get<EnterEmailRepository>(),
             authRepository = get<AuthRepository>(),
+            userRepository = get<UserRepository>(),
         )
     }
     viewModel {
@@ -83,7 +85,10 @@ val viewModelModule = module {
         MatchesViewModel()
     }
     viewModel {
-        MessagesViewModel()
+        MessagesViewModel(
+            appNavigator = get<AppNavigator>(),
+            userRepository = get<UserRepository>(),
+        )
     }
     viewModel {
         CabinetViewModel(
@@ -99,6 +104,11 @@ val viewModelModule = module {
             cameraRepository = get<CameraRepository>(),
             textProvider = get<TextProvider>(),
             permissionRepository = get<PermissionRepository>(),
+        )
+    }
+    viewModel {
+        ChatViewModel(
+            appNavigator = get<AppNavigator>(),
         )
     }
 }

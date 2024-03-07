@@ -83,6 +83,22 @@ sealed class Destination(
     }
 
     object CameraScreen : NoArgumentsDestination(Route.CAMERA.key)
+
+    object ChatScreen : Destination(
+        route = Route.CHAT.key,
+        arguments = listOf(
+            navArgument("channelId") {
+                type = NavType.StringType
+            },
+        ),
+    ) {
+
+        const val KEY_CHANNEL_ID = "channelId"
+
+        operator fun invoke(channelId: String): String = route.appendParams(
+            KEY_CHANNEL_ID to channelId,
+        )
+    }
 }
 
 internal fun String.appendParams(vararg params: Pair<String, Any?>): String {

@@ -1,5 +1,6 @@
 package com.heartsync.features.main.data.providers
 
+import com.heartsync.core.providers.ChatProvider
 import com.heartsync.features.authphone.enteremail.data.EnterEmailRepositoryImpl
 import com.heartsync.features.authphone.enteremail.domain.EnterEmailRepository
 import com.heartsync.features.authphone.smscode.data.SmsCodeRepositoryImpl
@@ -60,6 +61,7 @@ val repositoryModule = module {
             firebaseAuthProvider = get<FirebaseAuthProvider>(),
             database = get<FirebaseDatabase>(),
             storageSource = get<StorageSource>(),
+            chatProvider = get<ChatProvider>(),
         )
     }
     single<DateTimeRepository> {

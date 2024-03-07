@@ -1,5 +1,6 @@
 package com.heartsync.di
 
+import com.heartsync.core.providers.ChatProvider
 import com.heartsync.features.camera.data.providers.CameraProvider
 import com.heartsync.features.main.data.providers.ContextProvider
 import com.heartsync.features.main.data.providers.FileProvider
@@ -42,6 +43,11 @@ val providerModule = module {
     single<PermissionsProvider> {
         PermissionsProvider(
             contextProvider = get<ContextProvider>(),
+        )
+    }
+    single<ChatProvider> {
+        ChatProvider(
+            context = androidContext(),
         )
     }
 }

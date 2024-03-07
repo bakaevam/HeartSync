@@ -11,6 +11,7 @@ import com.heartsync.features.main.data.providers.auth.FirebaseAuthProvider
 import com.heartsync.features.main.data.providers.auth.FirebaseAuthProvider.Companion.KEY_EMAIL
 import com.heartsync.features.main.presentation.models.UiBottomItem
 import com.heartsync.features.main.presentation.models.UiNavItem
+import com.heartsync.features.profiledetail.domain.repository.UserRepository
 import com.heartsync.features.signup.domain.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -21,6 +22,7 @@ class MainViewModel(
     appNavigator: AppNavigator,
     authRepository: AuthRepository,
     private val enterEmailRepository: EnterEmailRepository,
+    private val userRepository: UserRepository,
 ) : MviViewModel<MainState, MainEffect, MainAction>(
     MainState(
         bottomNavItems = listOf(
@@ -52,6 +54,7 @@ class MainViewModel(
             .onEach { authentication ->
                 if (authentication) {
                     currentNavItemFlow.value = UiBottomItem.DISCOVERY
+                    userRepository.initChats()
                 } else {
                     currentNavItemFlow.value = null
                     appNavigator.tryNavigateTo(

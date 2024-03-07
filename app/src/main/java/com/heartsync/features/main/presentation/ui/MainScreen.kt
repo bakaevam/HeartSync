@@ -26,6 +26,7 @@ import com.heartsync.features.authphone.enteremail.presentation.ui.EnterEmailScr
 import com.heartsync.features.authphone.smscode.presentation.ui.SmsCodeScreen
 import com.heartsync.features.cabinet.presentation.ui.CabinetScreen
 import com.heartsync.features.camera.presentation.ui.CameraScreen
+import com.heartsync.features.chat.presentation.ui.ChatScreen
 import com.heartsync.features.discovery.presentation.ui.DiscoveryScreen
 import com.heartsync.features.main.presentation.viewmodels.MainAction
 import com.heartsync.features.main.presentation.viewmodels.MainEffect
@@ -119,6 +120,9 @@ fun MainScreen(
                     }
                     composable(destination = Destination.CameraScreen) {
                         CameraScreen()
+                    }
+                    composable(destination = Destination.ChatScreen) {
+                        ChatScreen()
                     }
                 }
             }
