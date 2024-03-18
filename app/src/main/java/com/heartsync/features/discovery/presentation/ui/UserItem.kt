@@ -58,9 +58,11 @@ fun UserItem(
             .clip(MediumCornerShape),
     ) {
         LoadableImage(
-            modifier = Modifier.height(400.dp),
+            modifier = Modifier
+                .height(400.dp)
+                .align(Alignment.Center),
             imageUrl = user.imageUrl,
-            contentScale = ContentScale.FillHeight
+            contentScale = ContentScale.FillHeight,
         )
         Box(
             modifier = Modifier

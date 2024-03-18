@@ -1,5 +1,6 @@
 package com.heartsync.features.profiledetail.domain.repository
 
+import android.net.Uri
 import com.heartsync.features.cabinet.domain.model.ProfileData
 import io.getstream.chat.android.client.setup.state.ClientState
 import java.time.LocalDate
@@ -24,4 +25,6 @@ interface UserRepository {
     suspend fun getAllUsers(): List<ProfileData>
 
     suspend fun getUserUid(): String?
+
+    suspend fun getAvatarByUid(userUid: String): Uri?
 }

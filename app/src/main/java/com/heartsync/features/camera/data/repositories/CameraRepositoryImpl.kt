@@ -29,7 +29,11 @@ class CameraRepositoryImpl(
         val photoFile = File(
             outputDirectory,
             fileProvider.createNewFileName(
-                fileName = filename ?: NAME_PHOTO,
+                fileName = fileProvider.createNewFileName(
+                    fileName = filename ?: NAME_PHOTO,
+                    suffix = PHOTO_SUFFIX,
+                    withDateTime = true
+                ),
                 suffix = PHOTO_SUFFIX,
                 withDateTime = false,
             )

@@ -19,7 +19,7 @@ object DiscoveryUserMapper : KoinComponent {
         return UiDiscoveryUser(
             id = user.id,
             uid = user.uid,
-            imageUrl = EMPTY_STRING,
+            imageUrl = user.avatar.toString(),
             nameAge = "${user.name}, $age",
             profession = EMPTY_STRING,
         )

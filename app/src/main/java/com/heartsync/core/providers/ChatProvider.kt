@@ -30,6 +30,7 @@ class ChatProvider(
     suspend fun initialize(
         userUid: String,
         nickname: String,
+        avatar: String,
     ) {
         client.value = ChatClient.Builder(
             apiKey = BuildConfig.CHAT_API_KEY,
@@ -39,7 +40,7 @@ class ChatProvider(
             .logLevel(logLevel)
             .build()
         if (ChatClient.instance().getCurrentUser() == null) {
-            val user = createUser(userUid, nickname)
+            val user = createUser(userUid, nickname, avatar)
 
             client.value
                 ?.connectUser(user = user, token = client.value?.devToken(userUid) ?: EMPTY_STRING)
@@ -65,11 +66,12 @@ class ChatProvider(
     private fun createUser(
         userUid: String,
         nickname: String,
+        avatar: String,
     ): User {
         return User(
             id = userUid,
             name = nickname,
-            role = "user"
+            image = avatar,
         )
     }
 

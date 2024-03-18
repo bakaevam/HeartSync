@@ -1,5 +1,6 @@
 package com.heartsync.features.profiledetail.data.repository
 
+import android.net.Uri
 import com.heartsync.core.providers.ChatProvider
 import com.heartsync.core.tools.format.DateMapper
 import com.heartsync.features.cabinet.domain.model.ProfileData
@@ -48,9 +49,10 @@ class UserRepositoryImpl(
                     .getUserInfo(userUid)
                     ?.let(UserMapper::toProfileData)
             }
-            profileData?.copy(
-                avatar = storageSource.getAvatar(userUid),
+            val avatarProfileData = profileData?.copy(
+                avatar = storageSource.getAvatar(userUid) ?: Uri.EMPTY,
             )
+            avatarProfileData
         }
 
     override suspend fun getProfile(): ProfileData? =
@@ -78,6 +80,7 @@ class UserRepositoryImpl(
             chatProvider.initialize(
                 userUid = userUid,
                 nickname = profileData.name,
+                avatar = getAvatarByUid(userUid).toString(),
             )
         }
     }
@@ -100,6 +103,10 @@ class UserRepositoryImpl(
 
     override suspend fun getUserUid(): String? {
         return firebaseAuthProvider.getCurrentUser()?.uid
+    }
+
+    override suspend fun getAvatarByUid(userUid: String): Uri? {
+        return storageSource.getAvatar(userUid) ?: Uri.EMPTY
     }
 
     private companion object {
