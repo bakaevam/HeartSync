@@ -60,7 +60,7 @@ class CameraRepositoryImpl(
         cameraProvider.getCameraSelector(lensFacing)
 
     override suspend fun uploadAvatar(uri: Uri) {
-        val userUid = firebaseAuthProvider.getUserUid()
+        val userUid = firebaseAuthProvider.getCurrentUser()?.uid
         if (userUid != null) {
             storageSource.loadPhoto(
                 uri = uri,

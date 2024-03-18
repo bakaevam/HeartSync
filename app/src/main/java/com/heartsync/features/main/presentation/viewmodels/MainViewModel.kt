@@ -54,7 +54,7 @@ class MainViewModel(
             .onEach { authentication ->
                 if (authentication) {
                     currentNavItemFlow.value = UiBottomItem.DISCOVERY
-                    userRepository.initChats()
+                    initChats()
                 } else {
                     currentNavItemFlow.value = null
                     appNavigator.tryNavigateTo(
@@ -123,7 +123,7 @@ class MainViewModel(
         is MainAction.OnNavigateDiscovery -> changeBottomNavBarVisibility(true)
         is MainAction.OnNavigateWelcome -> changeBottomNavBarVisibility(false)
         is MainAction.OnHandleDeeplink -> handleDeeplink(action)
-        is MainAction.OnNavigateProfileDetail -> changeBottomNavBarVisibility(false)
+        is MainAction.OnNavigateProfileDetail -> {}
         is MainAction.OnPermissionGrant -> {}
     }
 
@@ -166,6 +166,16 @@ class MainViewModel(
             } catch (e: Throwable) {
                 Log.e(TAG, "Failed to sign up by email", e)
                 postEffect(MainEffect.ShowError())
+            }
+        }
+    }
+
+    private fun initChats() {
+        viewModelScope.launch {
+            try {
+                userRepository.initChats()
+            } catch (e: Throwable) {
+                Log.e(TAG, "Failed to init chats", e)
             }
         }
     }

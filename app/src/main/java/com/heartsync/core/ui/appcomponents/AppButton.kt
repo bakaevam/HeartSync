@@ -95,7 +95,7 @@ fun AppButton(
             icon?.let {
                 val tint = when (type) {
                     Type.REGULAR -> MaterialTheme.colorScheme.onPrimary
-                    Type.GHOST -> Color.Transparent
+                    Type.GHOST -> MaterialTheme.colorScheme.primary
                     else -> MaterialTheme.colorScheme.primary
                 }
                 AppIcon(

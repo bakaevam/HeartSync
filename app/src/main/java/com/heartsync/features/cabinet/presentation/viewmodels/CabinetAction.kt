@@ -10,6 +10,8 @@ sealed interface CabinetAction : Action {
 
     object OnEditAvatarClick : CabinetAction
 
+    object OnEditProfileClick : CabinetAction
+
     class OnResume(
         val avatar: String?,
     ) : CabinetAction

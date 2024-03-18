@@ -4,6 +4,7 @@ import java.time.LocalDate
 
 data class UserInfo(
     val id: String,
+    val uid: String,
     val name: String,
     val lastname: String,
     val birthday: LocalDate?,

@@ -27,7 +27,7 @@ fun MessagesBody(
                     title = stringResource(R.string.messages_title),
                     isShowingSearch = true,
                     onItemClick = { channel ->
-                        onAction(MessagesAction.OnChannelClick(channel.id))
+                        onAction(MessagesAction.OnChannelClick(channel.cid))
                     },
                 )
             }
