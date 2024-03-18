@@ -10,5 +10,5 @@ interface StorageSource {
         filename: String?,
     )
 
-    suspend fun getAvatar(userId: String): Uri
+    suspend fun getAvatar(userId: String): Uri?
 }

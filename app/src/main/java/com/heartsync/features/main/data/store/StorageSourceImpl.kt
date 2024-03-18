@@ -20,10 +20,14 @@ class StorageSourceImpl : StorageSource {
         reference.putFile(uri).await()
     }
 
-    override suspend fun getAvatar(userId: String): Uri {
+    override suspend fun getAvatar(userId: String): Uri? {
         val reference =
             storage.reference.child("$PATH_AVATARS$userId/$FILENAME_AVATAR$AVATAR_EXTENSION")
-        return reference.downloadUrl.await()
+        return try {
+            reference.downloadUrl.await()
+        } catch (e: Throwable) {
+            null
+        }
     }
 
     companion object {

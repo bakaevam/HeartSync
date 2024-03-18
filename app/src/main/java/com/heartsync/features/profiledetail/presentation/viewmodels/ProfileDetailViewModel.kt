@@ -96,7 +96,7 @@ class ProfileDetailViewModel(
                     birthday = birthdayFlow.value,
                     gender = selectedGender ?: throw Exception("Gender is null"),
                 )
-                appNavigator.tryNavigateTo(Destination.DiscoveryScreen.fullRoute)
+                appNavigator.tryNavigateBack()
             } catch (e: Throwable) {
                 Log.e(TAG, "Failed to save profile detail info", e)
                 postEffect(ProfileDetailEffect.ShowError())

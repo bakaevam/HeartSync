@@ -23,12 +23,13 @@ class FirebaseDatabase {
     }
 
     suspend fun updateUserInfo(
-        dbUserInfo: DbUserInfo,
+        updates: Map<String, Any>,
         userUid: String,
     ) {
         database
             .getReference(REFERENCE_USER_INFO)
-            .updateChildren(mapOf(userUid to dbUserInfo))
+            .child(userUid)
+            .updateChildren(updates)
             .await()
     }
 
@@ -40,6 +41,16 @@ class FirebaseDatabase {
                 .get()
                 .await()
                 .getValue(DbUserInfo::class.java)
+        }
+
+    suspend fun getAllUsers(): List<DbUserInfo> =
+        withContext(Dispatchers.Default) {
+            database
+                .getReference(REFERENCE_USER_INFO)
+                .get()
+                .await()
+                .children
+                .mapNotNull { it.getValue(DbUserInfo::class.java) }
         }
 
     private companion object {

@@ -29,6 +29,7 @@ class CabinetViewModel(
         is CabinetAction.OnOpenCameraClick -> onOpenCameraClick()
         is CabinetAction.OnEditAvatarClick -> appNavigator.tryNavigateTo(Destination.CameraScreen.fullRoute)
         is CabinetAction.OnResume -> onResume(action)
+        is CabinetAction.OnEditProfileClick -> appNavigator.tryNavigateTo(Destination.ProfileDetailScreen.fullRoute)
     }
 
     private fun onResume(action: CabinetAction.OnResume) {

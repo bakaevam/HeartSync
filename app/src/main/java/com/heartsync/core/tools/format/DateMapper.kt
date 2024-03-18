@@ -19,8 +19,8 @@ object DateMapper {
     fun getSeconds(millis: Long): Long =
         TimeUnit.MILLISECONDS.toSeconds(millis) % MINUTES_IN_HOUR
 
-    fun formatDayMonthYear(date: LocalDate?): String? =
-        date?.format(dateFormatDayMonthYear)
+    fun formatDayMonthYear(date: LocalDate): String =
+        date.format(dateFormatDayMonthYear)
 
     fun toMillis(date: LocalDate): Long {
         val localDateTime = LocalDateTime.of(date, LocalTime.MIN)

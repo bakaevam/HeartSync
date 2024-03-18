@@ -12,8 +12,10 @@ import com.heartsync.features.cabinet.presentation.viewmodels.CabinetViewModel
 import com.heartsync.features.camera.domain.repositories.CameraRepository
 import com.heartsync.features.camera.presentation.viewmodels.CameraViewModel
 import com.heartsync.features.chat.presentation.viewmodels.ChatViewModel
+import com.heartsync.features.discovery.domain.usecase.LoadUsersUseCase
 import com.heartsync.features.discovery.presentation.viewmodels.DiscoveryViewModel
 import com.heartsync.features.main.data.providers.TextProvider
+import com.heartsync.features.main.domain.repositories.ChatRepository
 import com.heartsync.features.main.domain.repositories.PermissionRepository
 import com.heartsync.features.main.presentation.viewmodels.MainViewModel
 import com.heartsync.features.matches.presentation.viewmodels.MatchesViewModel
@@ -71,7 +73,11 @@ val viewModelModule = module {
         )
     }
     viewModel {
-        DiscoveryViewModel()
+        DiscoveryViewModel(
+            appNavigator = get<AppNavigator>(),
+            loadUsers = get<LoadUsersUseCase>(),
+            chatRepository = get<ChatRepository>(),
+        )
     }
     viewModel {
         ProfileDetailViewModel(
@@ -106,9 +112,10 @@ val viewModelModule = module {
             permissionRepository = get<PermissionRepository>(),
         )
     }
-    viewModel {
+    viewModel { (arguments: SavedStateHandle) ->
         ChatViewModel(
             appNavigator = get<AppNavigator>(),
+            savedStateHandle = arguments,
         )
     }
 }

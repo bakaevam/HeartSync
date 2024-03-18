@@ -18,12 +18,14 @@ fun ChatScreen(
     val state by viewModel.state.collectAsState()
     ChatTheme {
         val context = LocalContext.current
-        MessagesScreen(
-            viewModelFactory = MessagesViewModelFactory(
-                context = context,
-                channelId = state.channelId,
-            ),
-            onBackPressed = { viewModel.onAction(ChatAction.OnBackPress) }
-        )
+        if (state.channelId.isNotEmpty()) {
+            MessagesScreen(
+                viewModelFactory = MessagesViewModelFactory(
+                    context = context,
+                    channelId = state.channelId,
+                ),
+                onBackPressed = { viewModel.onAction(ChatAction.OnBackPress) }
+            )
+        }
     }
 }

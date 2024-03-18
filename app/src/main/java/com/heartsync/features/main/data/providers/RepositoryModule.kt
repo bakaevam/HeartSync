@@ -9,11 +9,13 @@ import com.heartsync.features.camera.data.providers.CameraProvider
 import com.heartsync.features.camera.data.repositories.CameraRepositoryImpl
 import com.heartsync.features.camera.domain.repositories.CameraRepository
 import com.heartsync.features.main.data.providers.auth.FirebaseAuthProvider
+import com.heartsync.features.main.data.repositories.ChatRepositoryImpl
 import com.heartsync.features.main.data.repositories.DateTimeRepositoryImpl
 import com.heartsync.features.main.data.repositories.PermissionRepositoryImpl
 import com.heartsync.features.main.data.store.FirebaseDatabase
 import com.heartsync.features.main.data.store.FirebaseStoreImpl
 import com.heartsync.features.main.data.store.StorageSourceImpl
+import com.heartsync.features.main.domain.repositories.ChatRepository
 import com.heartsync.features.main.domain.repositories.DateTimeRepository
 import com.heartsync.features.main.domain.repositories.PermissionRepository
 import com.heartsync.features.main.domain.store.FirebaseStore
@@ -78,6 +80,12 @@ val repositoryModule = module {
     single<PermissionRepository> {
         PermissionRepositoryImpl(
             permissionsProvider = get<PermissionsProvider>(),
+        )
+    }
+    single<ChatRepository> {
+        ChatRepositoryImpl(
+            chatProvider = get<ChatProvider>(),
+            userRepository = get<UserRepository>(),
         )
     }
 }

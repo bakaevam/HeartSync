@@ -10,6 +10,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthMissingActivityForRecaptchaException
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
@@ -137,8 +138,8 @@ class FirebaseAuthProvider {
     ): AuthResult =
         firebaseAuth.signInWithEmailAndPassword(email, password).await()
 
-    fun getUserUid(): String? =
-        firebaseAuth.currentUser?.uid
+    fun getCurrentUser(): FirebaseUser? =
+        firebaseAuth.currentUser
 
     fun signOut() {
         firebaseAuth.signOut()

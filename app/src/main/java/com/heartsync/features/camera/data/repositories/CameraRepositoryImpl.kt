@@ -29,7 +29,11 @@ class CameraRepositoryImpl(
         val photoFile = File(
             outputDirectory,
             fileProvider.createNewFileName(
-                fileName = filename ?: NAME_PHOTO,
+                fileName = fileProvider.createNewFileName(
+                    fileName = filename ?: NAME_PHOTO,
+                    suffix = PHOTO_SUFFIX,
+                    withDateTime = true
+                ),
                 suffix = PHOTO_SUFFIX,
                 withDateTime = false,
             )
@@ -60,7 +64,7 @@ class CameraRepositoryImpl(
         cameraProvider.getCameraSelector(lensFacing)
 
     override suspend fun uploadAvatar(uri: Uri) {
-        val userUid = firebaseAuthProvider.getUserUid()
+        val userUid = firebaseAuthProvider.getCurrentUser()?.uid
         if (userUid != null) {
             storageSource.loadPhoto(
                 uri = uri,

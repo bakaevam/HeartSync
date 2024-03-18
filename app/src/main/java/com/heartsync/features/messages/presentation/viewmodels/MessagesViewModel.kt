@@ -37,7 +37,7 @@ class MessagesViewModel(
     }
 
     private fun onChannelClick(action: MessagesAction.OnChannelClick) {
-        appNavigator.tryNavigateTo(Destination.ChatScreen(action.channelId))
+        appNavigator.tryNavigateTo(Destination.ChatScreen.invoke(action.channelId))
     }
 
     private companion object {

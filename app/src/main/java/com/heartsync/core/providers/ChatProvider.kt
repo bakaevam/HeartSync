@@ -25,22 +25,12 @@ class ChatProvider(
 
     private val client = MutableStateFlow<ChatClient?>(null)
 
-    val logLevel = if (BuildConfig.DEBUG) ChatLogLevel.ALL else ChatLogLevel.NOTHING
-
-    init {
-        client.value = ChatClient.Builder(
-            apiKey = BuildConfig.CHAT_API_KEY,
-            appContext = context,
-        )
-            .withPlugins(statePluginFactory)
-            .logLevel(logLevel)
-            .build()
-    }
+    private val logLevel = if (BuildConfig.DEBUG) ChatLogLevel.ALL else ChatLogLevel.NOTHING
 
     suspend fun initialize(
         userUid: String,
         nickname: String,
-        token: String,
+        avatar: String,
     ) {
         client.value = ChatClient.Builder(
             apiKey = BuildConfig.CHAT_API_KEY,
@@ -49,10 +39,11 @@ class ChatProvider(
             .withPlugins(statePluginFactory)
             .logLevel(logLevel)
             .build()
-        if (client.value?.getCurrentUser() == null) {
-            val user = createUser(userUid, nickname)
+        if (ChatClient.instance().getCurrentUser() == null) {
+            val user = createUser(userUid, nickname, avatar)
+
             client.value
-                ?.connectUser(user = user, token = token)
+                ?.connectUser(user = user, token = client.value?.devToken(userUid) ?: EMPTY_STRING)
                 ?.await()
         }
     }
@@ -60,10 +51,12 @@ class ChatProvider(
     fun getClientState(): ClientState? =
         client.value?.clientState
 
-    suspend fun createChannel(): io.getstream.chat.android.models.Channel? {
+    suspend fun createChannel(
+        members: List<String>,
+    ): io.getstream.chat.android.models.Channel? {
         return client.value?.createChannel(
             channelType = CHANNEL_TYPE,
-            memberIds = listOf(),
+            memberIds = members,
             channelId = EMPTY_STRING,
             extraData = emptyMap(),
         )?.await()
@@ -73,10 +66,12 @@ class ChatProvider(
     private fun createUser(
         userUid: String,
         nickname: String,
+        avatar: String,
     ): User {
         return User(
             id = userUid,
             name = nickname,
+            image = avatar,
         )
     }
 

@@ -11,6 +11,7 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.withContext
+import java.util.UUID
 
 class AuthRepositoryImpl(
     private val firebaseAuthProvider: FirebaseAuthProvider,
@@ -76,7 +77,8 @@ class AuthRepositoryImpl(
 
     private fun createUser(userUid: String): UserInfo =
         UserInfo(
-            id = userUid,
+            id = UUID.randomUUID().toString(),
+            uid = userUid,
             name = EMPTY_STRING,
             lastname = EMPTY_STRING,
             birthday = null,
