@@ -17,9 +17,8 @@ fun MessagesScreen(
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {
-        val initializationState by state.clientState.collectAsState()
         MessagesBody(
-            state = initializationState,
+            state = state,
             onAction = viewModel::onAction,
         )
     }

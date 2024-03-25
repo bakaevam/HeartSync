@@ -1,9 +1,13 @@
 package com.heartsync.core.tools.extention
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -12,6 +16,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
+import com.heartsync.core.tools.INT_ONE
+import com.heartsync.core.tools.INT_ZERO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 
@@ -47,6 +53,24 @@ fun OnLifecycleEvent(
         onDispose {
             lifecycle.removeObserver(observer)
         }
+    }
+}
+
+@Composable
+fun LazyListState.OnListEndReached(
+    buffer: Int = INT_ZERO,
+    handler: () -> Unit,
+) {
+    val shouldCallHandler by remember {
+        derivedStateOf {
+            layoutInfo.visibleItemsInfo.lastOrNull()?.let { lastVisibleItem ->
+                lastVisibleItem.index == layoutInfo.totalItemsCount - INT_ONE - buffer
+            } ?: false
+        }
+    }
+
+    LaunchedEffect(shouldCallHandler) {
+        if (shouldCallHandler) handler()
     }
 }
 

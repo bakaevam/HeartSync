@@ -23,7 +23,7 @@ class ChatProvider(
         appContext = context,
     )
 
-    private val client = MutableStateFlow<ChatClient?>(null)
+    val client = MutableStateFlow<ChatClient?>(null)
 
     private val logLevel = if (BuildConfig.DEBUG) ChatLogLevel.ALL else ChatLogLevel.NOTHING
 

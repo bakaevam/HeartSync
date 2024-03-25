@@ -71,6 +71,12 @@
 
     <!--Messages-->
     <string name="messages_title">Сообщения</string>
+    <string name="messages_search">Поиск</string>
+    <string name="messages_empty_text">...</string>
+    <string name="messages_default_channel_name">Чатик</string>
+    <string name="messages_now">Сейчас</string>
+    <string name="messages_minute">%d мин</string>
+    <string name="messages_hours">%d ч</string>
 
     <!--Cabinet-->
     <string name="cabinet_profile_title">Данные профиля</string>
