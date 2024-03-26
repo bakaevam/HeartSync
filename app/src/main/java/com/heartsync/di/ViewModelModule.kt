@@ -121,6 +121,9 @@ val viewModelModule = module {
         ChatViewModel(
             appNavigator = get<AppNavigator>(),
             savedStateHandle = arguments,
+            textProvider = get<TextProvider>(),
+            chatProvider = get<ChatProvider>(),
+            dateTimeRepository = get<DateTimeRepository>(),
         )
     }
 }

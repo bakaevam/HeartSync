@@ -3,7 +3,6 @@ package com.heartsync.features.messages.presentation.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,7 +22,7 @@ import com.heartsync.core.tools.EMPTY_STRING
 import com.heartsync.core.tools.INT_ONE
 import com.heartsync.core.tools.INT_ZERO
 import com.heartsync.core.ui.appcomponents.AppText
-import com.heartsync.core.ui.appcomponents.LoadableImage
+import com.heartsync.core.ui.chat.ChatAvatar
 import com.heartsync.core.ui.theme.HeartSyncTheme
 import com.heartsync.core.ui.tools.AppPreview
 import com.heartsync.features.messages.presentation.model.UiChatItem
@@ -62,36 +61,10 @@ fun ChatItem(
             ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        if (chat.image.isNotEmpty()) {
-            LoadableImage(
-                modifier = Modifier
-                    .padding(end = 10.dp)
-                    .clip(CircleShape)
-                    .size(48.dp),
-                imageUrl = chat.image,
-            )
-        } else {
-            Box(
-                modifier = Modifier
-                    .padding(end = 10.dp)
-                    .size(48.dp)
-                    .clip(CircleShape)
-                    .background(
-                        color = MaterialTheme.colorScheme.primary,
-                        shape = CircleShape
-                    ),
-                contentAlignment = Alignment.Center,
-            ) {
-                AppText(
-                    text = chat.name[INT_ZERO].toString(),
-                    maxLines = INT_ONE,
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.headlineSmall.copy(
-                        color = MaterialTheme.colorScheme.background,
-                    ),
-                )
-            }
-        }
+        ChatAvatar(
+            image = chat.image,
+            name = chat.name,
+        )
         Column {
             Row {
                 Column(modifier = Modifier.weight(1f)) {

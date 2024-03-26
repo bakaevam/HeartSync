@@ -26,4 +26,6 @@ val OnSurfaceVariant = Color(0xFF524343)
 object AdditionalColor {
 
     val Background = Color(0xfff3f3f3)
+    val Success = Color(0xFF008D00)
+    val MessageBackground = Color(0xfffdf2f3)
 }

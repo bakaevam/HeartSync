@@ -7,8 +7,8 @@ import com.heartsync.R
 import com.heartsync.core.base.MviViewModel
 import com.heartsync.core.tools.EMPTY_STRING
 import com.heartsync.core.tools.INT_ONE
-import com.heartsync.core.tools.format.DateFormatter
 import com.heartsync.core.tools.format.DateMapper
+import com.heartsync.core.tools.format.DateTimeFormatter
 import com.heartsync.core.tools.navigation.AppNavigator
 import com.heartsync.core.tools.navigation.Destination
 import com.heartsync.core.ui.model.UiChooserItem
@@ -122,7 +122,7 @@ class ProfileDetailViewModel(
     private fun onBirthdayConfirm(action: ProfileDetailAction.OnBirthdayConfirm) {
         val birthday = LocalDate.of(action.year, action.month + INT_ONE, action.day)
         birthdayFlow.value = birthday
-        setState { copy(birthday = DateFormatter.formatDateString(birthday)) }
+        setState { copy(birthday = DateTimeFormatter.formatDateString(birthday)) }
         validate()
     }
 

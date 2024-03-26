@@ -1,7 +1,7 @@
 package com.heartsync.features.main.data.providers
 
 import android.os.Environment
-import com.heartsync.core.tools.format.DateFormatter
+import com.heartsync.core.tools.format.DateTimeFormatter
 import com.heartsync.features.main.domain.repositories.DateTimeRepository
 import java.io.File
 
@@ -24,7 +24,7 @@ class FileProvider(
         return buildString {
             append(fileName)
             if (withDateTime) {
-                val dateTime = DateFormatter.formatFileDateTime(currentDateTime)
+                val dateTime = DateTimeFormatter.formatFileDateTime(currentDateTime)
                 append('-')
                 append(dateTime)
             }
