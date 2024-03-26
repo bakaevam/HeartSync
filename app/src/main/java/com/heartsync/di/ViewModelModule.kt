@@ -1,6 +1,7 @@
 package com.heartsync.di
 
 import androidx.lifecycle.SavedStateHandle
+import com.heartsync.core.providers.ChatProvider
 import com.heartsync.core.tools.navigation.AppNavigator
 import com.heartsync.features.authphone.editnumber.presentation.viewmodels.EnterPhoneViewModel
 import com.heartsync.features.authphone.enteremail.domain.EnterEmailRepository
@@ -16,6 +17,7 @@ import com.heartsync.features.discovery.domain.usecase.LoadUsersUseCase
 import com.heartsync.features.discovery.presentation.viewmodels.DiscoveryViewModel
 import com.heartsync.features.main.data.providers.TextProvider
 import com.heartsync.features.main.domain.repositories.ChatRepository
+import com.heartsync.features.main.domain.repositories.DateTimeRepository
 import com.heartsync.features.main.domain.repositories.PermissionRepository
 import com.heartsync.features.main.presentation.viewmodels.MainViewModel
 import com.heartsync.features.matches.presentation.viewmodels.MatchesViewModel
@@ -94,6 +96,9 @@ val viewModelModule = module {
         MessagesViewModel(
             appNavigator = get<AppNavigator>(),
             userRepository = get<UserRepository>(),
+            textProvider = get<TextProvider>(),
+            chatProvider = get<ChatProvider>(),
+            dateTimeRepository = get<DateTimeRepository>(),
         )
     }
     viewModel {
@@ -116,6 +121,9 @@ val viewModelModule = module {
         ChatViewModel(
             appNavigator = get<AppNavigator>(),
             savedStateHandle = arguments,
+            textProvider = get<TextProvider>(),
+            chatProvider = get<ChatProvider>(),
+            dateTimeRepository = get<DateTimeRepository>(),
         )
     }
 }

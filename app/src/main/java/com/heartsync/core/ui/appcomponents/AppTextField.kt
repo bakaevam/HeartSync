@@ -2,10 +2,11 @@ package com.heartsync.core.ui.appcomponents
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -21,10 +22,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.heartsync.core.ui.theme.HeartSyncTheme
 import com.heartsync.core.ui.theme.MediumCornerShape
+import com.heartsync.core.ui.theme.skModernist
 import com.heartsync.core.ui.tools.AppPreview
 
 @AppPreview
@@ -52,7 +55,10 @@ fun AppTextField(
     placeholder: String? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     visualTransformation: VisualTransformation = VisualTransformation.None,
+    leadingIcon: Painter? = null,
+    trailingIcon: Painter? = null,
     onValueChange: (String) -> Unit,
+    onTrailingIconClick: (() -> Unit)? = null,
 ) {
     val focusRequester = remember { FocusRequester() }
     BasicTextField(
@@ -61,10 +67,13 @@ fun AppTextField(
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         singleLine = singleLine,
+        textStyle = MaterialTheme.typography.bodyMedium.copy(
+            fontFamily = skModernist,
+        ),
         decorationBox = { innerTextField ->
             TextFieldDefaults.OutlinedTextFieldDecorationBox(
                 value = value,
-                contentPadding = PaddingValues(17.dp),
+                contentPadding = PaddingValues(horizontal = 17.dp, vertical = 20.dp),
                 container = {
                     Box(
                         modifier = Modifier
@@ -76,6 +85,31 @@ fun AppTextField(
                             )
                             .background(color = MaterialTheme.colorScheme.background),
                     )
+                },
+                leadingIcon =
+                if (leadingIcon != null) {
+                    {
+                        AppIcon(
+                            modifier = Modifier.size(20.dp),
+                            painter = leadingIcon,
+                        )
+                    }
+                } else {
+                    null
+                },
+                trailingIcon = if (trailingIcon != null) {
+                    {
+                        AppIcon(
+                            modifier = Modifier
+                                .size(20.dp)
+                                .clickable(
+                                    onClick = { onTrailingIconClick?.invoke() },
+                                ),
+                            painter = trailingIcon,
+                        )
+                    }
+                } else {
+                    null
                 },
                 innerTextField = innerTextField,
                 enabled = enabled,
@@ -89,7 +123,6 @@ fun AppTextField(
                             contentAlignment = Alignment.TopStart,
                         ) {
                             AppText(
-                                modifier = Modifier.padding(vertical = 12.dp),
                                 text = text,
                                 style = MaterialTheme.typography.bodyMedium.copy(
                                     color = MaterialTheme.colorScheme.outline
